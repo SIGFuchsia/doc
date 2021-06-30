@@ -1,3 +1,4 @@
 # SIGFuchsia-doc
 
-[![Build Doc](https://github.com/SIGFuchsia/doc/workflows/deploy/badge.svg?event=push)](https://github.com/SIGFuchsia/doc/actions?workflow=deploy)
+![Deploy on Github Page](https://github.com/SIGFuchsia/doc/workflows/deploy/badge.svg)
+![Markdown Lint](https://github.com/SIGFuchsia/doc/workflows/markdown-lint/badge.svg)
