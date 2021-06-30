@@ -1,4 +1,9 @@
 site_name: SIGFuchsia-Doc
-site_url: https://example.com/
+site_url: https://sigfuchsia.github.io/doc/
 theme:
   name: material
+nav:
+  - Home: index.md
+  - Basic: fuchsia/basic.md
+  - About: about.md
+  
