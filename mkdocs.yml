@@ -4,6 +4,8 @@ theme:
   name: material
 nav:
   - Home: index.md
-  - Basic: fuchsia/basic.md
+  - Basic: 
+    - Basic: basic/basic.md
+  - Troubles: 
+    - 'QT Missing xcb': troubles/qt-missing-xcb.md
   - About: about.md
-  
