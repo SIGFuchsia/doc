@@ -1,6 +1,6 @@
 # `ktrace-dump` utility is not built
 
-`ktrace-dump` is a small utility that convert Fuchsia's ktrace record into human-readable format. 
+`ktrace-dump` is a small utility that convert Fuchsia's ktrace record into human-readable format.
 
 ## Reproduce
 
