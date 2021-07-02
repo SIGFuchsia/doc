@@ -1,6 +1,0 @@
-{
-    "default": true,
-    "line-length": false,
-    "commands-show-output": false,
-    "no-bare-urls": false
-}
