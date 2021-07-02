@@ -1,22 +1,22 @@
 # `ktrace-dump` utility is not built
 
-`ktrace-dump` is a small utility that convert Fuchsia's ktrace record into human-readable format.
+`ktrace-dump` is a small utility that converts Fuchsia's ktrace record into human-readable format.
 
 ## Reproduce
 
-TODO
+Follow the [Kernel Tracing](https://fuchsia.dev/fuchsia-src/development/tracing/advanced/recording-a-kernel-trace?hl=en) tutorial, `ktrace-dump` utility is not build by default.
 
 ## Solution
 
-Using `fx host-tool` command.
+Use `fx host-tool` command.
 
-```bash
+```sh
 $ cd path/to/fuchsia
 #---------------#
 # build fuchsia #
 #---------------#
 
-# This command will try to build ktrace-dump automatically
+# This command builds ktrace-dump automatically
 $ fx host-tool ktrace-dump
 ```
 

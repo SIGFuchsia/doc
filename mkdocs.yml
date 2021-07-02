@@ -10,3 +10,6 @@ nav:
     - 'QT Missing xcb': troubles/qt-missing-xcb.md
     - '[Solved] Missing ktrace-dump': troubles/missing-ktrace-dump.md
   - About: about.md
+markdown_extensions:
+  - pymdownx.highlight
+  - pymdownx.superfences
