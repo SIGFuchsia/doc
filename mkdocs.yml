@@ -8,4 +8,5 @@ nav:
     - Basic: basic/basic.md
   - Troubles: 
     - 'QT Missing xcb': troubles/qt-missing-xcb.md
+    - 'Missing ktrace-dump': troubles/missing-ktrace-dump.md
   - About: about.md
