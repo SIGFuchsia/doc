@@ -9,6 +9,7 @@ nav:
   - Troubles: 
     - 'QT Missing xcb': troubles/qt-missing-xcb.md
     - '[Solved] Missing ktrace-dump': troubles/missing-ktrace-dump.md
+    - 'Missing Partition when Booting on NUC': troubles/nuc-boot-missing-partition.md
   - About: about.md
 markdown_extensions:
   - pymdownx.highlight
