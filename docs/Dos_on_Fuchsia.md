@@ -99,7 +99,7 @@ Warnning in Terminal 2, on my machine the FEMU will crash.
 If you set the 'max_num' value to a small value like 10 in hello_world.cc, the FEMU can still work with the hello_world component.
 
 ```
-PID      TID      TIME%  CPU STATE NAME
+PID      TID        TIME%  CPU STATE NAME
 59937    59939      99.99    3   run hello-world-cpp.cm:initial-thread
 26905    26907       0.46    0 block ptysvc.cm:initial-thread
 36894    37138       0.45    0 block netstack.cmx:pthread_t:0x18720985b18
