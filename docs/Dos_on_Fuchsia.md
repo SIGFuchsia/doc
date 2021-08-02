@@ -95,4 +95,18 @@ $ ffx component run fuchsia-pkg://fuchsia.com/hello-world#meta/hello-world-cpp.c
 ```
 
 ## Result
-Warnning in Terminal 2, FEMU crash. If you set the 'max_num' value to a small value like 10 in hello_world.cc, the FEMU can still work with the hello_world component.
+Warnning in Terminal 2, on my machine the FEMU will crash. 
+If you set the 'max_num' value to a small value like 10 in hello_world.cc, the FEMU can still work with the hello_world component.
+
+```
+PID      TID      TIME%  CPU STATE NAME
+59937    59939      99.99    3   run hello-world-cpp.cm:initial-thread
+26905    26907       0.46    0 block ptysvc.cm:initial-thread
+36894    37138       0.45    0 block netstack.cmx:pthread_t:0x18720985b18
+ 6658     7948       0.43    2 block driver_host:composite-device:virtio-net-irq-worker
+54060    54062       0.38    2 block /pkg/bin/sshd:initial-thread
+77419    77421       0.36    0   run top:initial-thread
+36894    37148       0.35    2 block netstack.cmx:pthread_t:0x90d20f1b18
+36894    37161       0.27    2 block netstack.cmx:pthread_t:0x1e2b9737b18
+
+```
