@@ -42,6 +42,8 @@ Replace "/examples/hello_world/cpp/helloworld.cc" with the following code.
 			}
 			i++;
 		}
+		while (1)
+		{}
 		return  0;
 	}
     
@@ -93,4 +95,4 @@ $ ffx component run fuchsia-pkg://fuchsia.com/hello-world#meta/hello-world-cpp.c
 ```
 
 ## Result
-Warnning in Terminal 2.
+Warnning in Terminal 2, FEMU crash. If you set the 'max_num' value to a small value like 10 in hello_world.cc, the FEMU can still work with the hello_world component.
