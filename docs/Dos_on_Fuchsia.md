@@ -95,7 +95,25 @@ $ ffx component run fuchsia-pkg://fuchsia.com/hello-world#meta/hello-world-cpp.c
 ```
 
 ## Result
-Warnning in Terminal 2, on my machine the FEMU will crash. 
+Warnning in Terminal 2, on my machine the FEMU will crash.
+
+Terminal 1
+```
+
+$ ssh: Could not resolve hostname : Temporary failure in name resolution
+kex_exchange_identification: Connection closed by remote host
+kex_exchange_identification: Connection closed by remote host
+kex_exchange_identification: Connection closed by remote host
+kex_exchange_identification: Connection closed by remote host
+kex_exchange_identification: Connection closed by remote host
+kex_exchange_identification: Connection closed by remote host
+kex_exchange_identification: Connection closed by remote host
+kex_exchange_identification: Connection closed by remote host
+kex_exchange_identification: Connection closed by remote host
+kex_exchange_identification: Connection closed by remote host
+
+```
+
 If you set the 'max_num' value to a small value like 10 in hello_world.cc, the FEMU can still work with the hello_world component.
 
 ```
