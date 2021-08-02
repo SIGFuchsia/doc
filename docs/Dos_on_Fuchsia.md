@@ -70,7 +70,7 @@ Replace "/examples/fortune/fortune.c" with the following code.
 
 ## Run
 
-Open four terminals. 
+Open 3 terminals. 
 
 Terminal 1
 
