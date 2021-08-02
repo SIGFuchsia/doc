@@ -114,7 +114,7 @@ kex_exchange_identification: Connection closed by remote host
 
 ```
 
-If you set the 'max_num' value to a small value like 10 in hello_world.cc, the FEMU can still work with the hello_world component. It means that it's feasible to  Dos attack the zircon kernel by loading malicious component. 
+If you set the 'max_num' value to a small value like 10 in hello_world.cc, the FEMU can still work with the hello_world component. It means that it's feasible to  Dos attack the zircon kernel by loading malicious components. 
 
 ```
 PID      TID        TIME%  CPU STATE NAME
