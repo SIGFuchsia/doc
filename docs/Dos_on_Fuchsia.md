@@ -69,7 +69,8 @@ Replace "/examples/hello_world/cpp/helloworld.cc" with the following code.
 
 ## Run
 
-Open four terminal. 
+Open four terminals. 
+
 Terminal 1
 
     $ fx set workstation.qemu-x64 --cache --with //example/hello_world
