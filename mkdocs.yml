@@ -6,6 +6,7 @@ nav:
   - Home: index.md
   - Basic: 
     - Basic: basic/basic.md
+    - Component: basic/component.md
   - Troubles: 
     - '[Solved] QT Missing xcb': troubles/qt-missing-xcb.md
     - '[Solved] Missing ktrace-dump': troubles/missing-ktrace-dump.md
