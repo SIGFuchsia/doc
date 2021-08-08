@@ -9,11 +9,11 @@ Replace "/examples/fortune/fortune.c" with the following code.
 
 // Get a handle by calling  zx_vmo_create, then call zx_handle_duplicate to duplicate the handle. 
 
-// Here I try to duplicate 512\*1024 handles, while the max number of handles is initialized as 256\*1024 in _arena.Init().
+// Here I try to duplicate 300\*1024 handles, while the max number of handles is initialized as 256\*1024 in _arena.Init().
 
 	#include <stdio.h>
 	#include  <zircon/syscalls.h>
-	#define  max_num  512*1024
+	#define  max_num  300*1024
 	zx_handle_t  res_handle[max_num];
 	int  main() {
 		zx_handle_t  handle1;
