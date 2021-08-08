@@ -74,7 +74,7 @@ Open 3 terminals.
 
 Terminal 1
 
-    $ fx set workstation.qemu-x64 --cache --with //example/fortune
+    $ fx set workstation.qemu-x64 --ccache --with //example/fortune
     $ fx build
     $ fx vdl start -N -u FUCHSIA_ROOT/scripts/start-unsecure-internet.sh
 
