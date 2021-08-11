@@ -130,3 +130,14 @@ kex_exchange_identification: Connection closed by remote host
 kex_exchange_identification: Connection closed by remote host
 
 ```
+
+## Details
+Zircon Handles allows user space programs to reference kernel objects.
+
+Sharable Resource: Zircon maintains a global struct call [HandleTableArena gHandleTableArena](https://cs.opensource.google/fuchsia/fuchsia/+/main:zircon/kernel/object/handle.cc;l=76) for allocating all Handles.
+
+Limit: The arena has a limit for all live handles, specified by [kMaxHandleCount](https://cs.opensource.google/fuchsia/fuchsia/+/main:zircon/kernel/object/handle.cc;l=18), whose value is 256 * 1024. gHandleTableArena contains a member of [fbl::GPArena<Handle::PreserveSize, sizeof(Handle)> arena_](https://cs.opensource.google/fuchsia/fuchsia/+/main:zircon/kernel/object/include/object/handle.h;l=154), whose [Init](https://cs.opensource.google/fuchsia/fuchsia/+/main:zircon/kernel/lib/fbl/include/fbl/gparena.h;l=42) allocates [kMaxHandleCount * handle_size](https://cs.opensource.google/fuchsia/fuchsia/+/main:zircon/kernel/object/handle.cc;l=78) memory. If the number of live handles goes beyond the limit, Alloc will return [nullptr](https://cs.opensource.google/fuchsia/fuchsia/+/main:zircon/kernel/lib/fbl/include/fbl/gparena.h;l=121).
+
+The attacker can consume handles to exhaust all handles in gHandleTableArena. 1) Handles are frequently-used in Zircon. Any events, processes, or threads are consuming new handles. 2) Currently we did not find any per-user limits on handles. 3) If handles are exhausted, the users cannot send events or creates any processes or threads.
+
+Count: GPArena maintains a count_, which increments in [Alloc](https://cs.opensource.google/fuchsia/fuchsia/+/main:zircon/kernel/lib/fbl/include/fbl/gparena.h;l=126).
