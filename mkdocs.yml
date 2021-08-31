@@ -8,6 +8,7 @@ nav:
     - Basic: basic/basic.md
   - Play:
     - 'DoS on Fuchsia': play/dos.md
+    - 'Boot Fuchsia on NUC': play/boot.md
   - Troubles: 
     - '[Solved] QT Missing xcb': troubles/qt-missing-xcb.md
     - '[Solved] Missing ktrace-dump': troubles/missing-ktrace-dump.md

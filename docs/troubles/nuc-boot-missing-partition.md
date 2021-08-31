@@ -25,3 +25,10 @@ $ fx mkzedboot /dev/sda
 It ends with:
 
 ![solve-ktrace-dump](../img/missing-partition.jpg)
+
+## Cause
+
+It seems a Gigaboot's bug. We have tested two version of gigaboot:
+
+- one that succeeded is at `b3126fb95c55bde3d99ff5358f3b5ec3bce2717e` (the older version)
+- one that failed is at `` (the newer version)
