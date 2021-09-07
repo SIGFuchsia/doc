@@ -1,4 +1,4 @@
-### Run Component
+# Run Component
 
 - **How to create a component?**
 

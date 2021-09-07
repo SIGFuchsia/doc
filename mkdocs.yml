@@ -9,6 +9,7 @@ nav:
   - Play:
     - 'DoS on Fuchsia': play/dos.md
     - 'Boot Fuchsia on NUC': play/boot.md
+    - 'Run Self-built Component': play/performance.md
   - Troubles: 
     - '[Solved] QT Missing xcb': troubles/qt-missing-xcb.md
     - '[Solved] Missing ktrace-dump': troubles/missing-ktrace-dump.md
