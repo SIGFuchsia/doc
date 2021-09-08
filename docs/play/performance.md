@@ -228,7 +228,7 @@
 
   - Run `benchmark_test`, the name of the executable, in emulator shell.
 
-    ```shell
+    ```bash
     $ benchmark_test
     Run on (1 X 2592.14 MHz CPU )
     2021-09-06 11:41:17
@@ -285,9 +285,133 @@
 
   - Write some micro-benches using the framework.
 
-    <span style='color:red'>TODO</span>
+    Fuchsia and Linux have different ideas on the basic concepts. So, micro-benches using `POSIX API` cannot be ported. We must find the functional counterpart. Currently, we add a file operation test (the following code to `//third_party/benchmark/syscall_test.cc`) as a micro-bench test. Then, we update the dependency of `//third_party/benchmark/BUILD.gn`. We can use `dm <PATH>` to see which file system is. I see `/boot` is `memfs` as expected, `/data` is `minfs` and others like `/pkg` and `/bin` are unknown. And the `mkdir touch rm` commands fail on these unknown areas. We might have to **find out the reason**. Also, we use more language-based standard library rather than something like `unistd` and `libfdio` for simplicity and generalization.
 
-  - Run the same tests on both Linux and Zircon on Intel NUC.
+    ```c++
+    #define USE_ZIRCON_ZX_SYSCALL
+    
+    #ifdef USE_ZIRCON_ZX_SYSCALL
+    #include "benchmark/benchmark_api.h"
+    #else
+    #include "benchmark/benchmark.h"
+    #endif
+    #include <iostream>
+    #include <fstream>
+    
+    namespace {
+    // zircon use fdio.so library to do file operations, rather than posix api.
+    // fdio knows how to speak to those other Fuchsia services over Channel IPC, 
+    // and provides a Posix-like layer for libc to expose. 
+    // Sockets are similarly implemented via fdio communicating with the userspace network stack.
+    void file_write(int file_size, benchmark::State& state) {
+      char *buf = new char[file_size];
+      for (int i = 0; i < file_size; i++) {
+        if (i % 2 == 0) buf[i] = 'A';
+        else buf[i] = 'B';
+      }
+      std::ofstream ofs;
+      state.ResumeTiming();
+    #ifdef USE_ZIRCON_ZX_SYSCALL
+      ofs.open("/data/test_file.txt");
+    #else
+      ofs.open("test_file.txt");
+    #endif
+      if (ofs.is_open()) {
+        ofs.write(buf, file_size);
+        ofs.close();
+      } else {
+        std::cout << "[error] in file write, cannot open file.\n";
+      }
+      state.PauseTiming();
+      delete[] buf;
+    }
+    
+    void file_read_rm(int file_size, benchmark::State& state) {
+      char *buf = new char[file_size];
+      std::ifstream ifs;
+      state.ResumeTiming();
+    #ifdef USE_ZIRCON_ZX_SYSCALL
+      ifs.open("/data/test_file.txt");
+    #else
+      ifs.open("test_file.txt");
+    #endif
+      if (ifs.is_open()) {
+        ifs.read(buf, file_size);
+        ifs.close();
+      } else {
+        std::cout << "[error] in file read, cannot open file.\n";
+      }
+      state.PauseTiming();
+      delete[] buf;
+    }
+    }
+    
+    static void BM_FileOp(benchmark::State& state) {
+      const int SZ_PAGE = 1024;
+      while (state.KeepRunning()) {
+        state.PauseTiming();
+        file_write(state.range(0) * SZ_PAGE, state);
+        file_read_rm(state.range(0) * SZ_PAGE, state);
+        state.ResumeTiming();
+      }
+    }
+    // test 1k, 10k and 1m file
+    BENCHMARK(BM_FileOp)->Arg(1)->Arg(10)->Arg(1000);
+    
+    BENCHMARK_MAIN();
+    
+    #undef USE_ZIRCON_ZX_SYSCALL
+    ```
 
-    <span style='color:red'>TODO</span>
+    Then, run `fx set core.qemu-x64 --with-base //bundles:tools` and `fx build`. We use the `core` configuration because our NUC 9 can only run `core` configuration.
+
+    Run on emulator to test it!
+
+    ```bash
+    $ benchmark
+    Run on (1 X 2592.13 MHz CPU )
+    2021-09-08 10:42:36
+    ***WARNING*** Library was built as DEBUG. Timings may be affected.
+    Benchmark               Time           CPU Iterations
+    -----------------------------------------------------
+    BM_FileOp/1      29580839 ns     480812 ns       1000
+    BM_FileOp/10     36780568 ns     705535 ns       1035
+    BM_FileOp/1000   37059443 ns    8599233 ns         82
+    ```
+
+  - Run the same tests on both Linux and Zircon on the same Intel NUC (even with same devices).
+
+    First, run it on Linux.
+
+    ```bash
+    2021-09-08T19:03:53+08:00
+    Running ./build/test/syscall_test
+    Run on (12 X 4500 MHz CPU s)
+    CPU Caches:
+      L1 Data 32 KiB (x6)
+      L1 Instruction 32 KiB (x6)
+      L2 Unified 256 KiB (x6)
+      L3 Unified 12288 KiB (x1)
+    Load Average: 0.52, 0.46, 0.23
+    ***WARNING*** CPU scaling is enabled, the benchmark real time measurements may be noisy and will incur extra overhead.
+    ***WARNING*** Library was built as DEBUG. Timings may be affected.
+    ---------------------------------------------------------
+    Benchmark               Time             CPU   Iterations
+    ---------------------------------------------------------
+    BM_FileOp/1         36055 ns        26183 ns        26937
+    BM_FileOp/10        29221 ns        29032 ns        24282
+    BM_FileOp/1000     542094 ns       541968 ns         1243
+    ```
+
+    Then, we must face the real block device. We just make a partition follow the instructions.
+
+    ```bash
+    
+    ```
+
+    
+
+- **How to run native debugger and tracer?**
+
+- **Which part of Fuchsia consumes time?**
 
