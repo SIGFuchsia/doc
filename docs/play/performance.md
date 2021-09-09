@@ -415,3 +415,5 @@
 
 - **Which part of Fuchsia consumes time?**
 
+- **How does the kernel support the component manager?**
+
