@@ -4,6 +4,8 @@ repo_url: https://github.com/SIGFuchsia/doc
 repo_name: SIGFuchsia/doc
 theme:
   name: material
+  features:
+    - navigation.expand
   palette:
     - media: "(prefers-color-scheme: light)"
       scheme: default

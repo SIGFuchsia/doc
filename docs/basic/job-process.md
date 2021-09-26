@@ -3,8 +3,9 @@ Job & Process
 
 本文讨论的核心问题：
 
-1. `Job 和 Process 的不同`
-2. `Job 存在的意义`
+1. Job 和 Process 的不同
+2. Job 存在的意义
+3. 
 
 ## 相关链接
 
@@ -20,7 +21,6 @@ Job & Process
     - Memory & CPU usage
 3. All jobs form a tree.
 4. Every job except the root job belongs to a single (parent) job.
-
 
 
 ## Job as an Object
@@ -39,7 +39,7 @@ Job as an object contains the following:
 - a set of member processes
 - a set of policies [:warning: not implemented]
 
-All the above elements are highlight
+All the above elements are highlight among the following code block:
 
 ```c++ linenums="216" hl_lines="1 30 31 33"
   const fbl::RefPtr<JobDispatcher> parent_;
@@ -79,13 +79,19 @@ All the above elements are highlight
 
 > 236 行和 238 的 `using` 关键字是 C++11 的 type alias 关键字，等同于 `typedef`。
 
-## Possible Operations on Jobs
+## 为什么需要 Job
 
+答：是为了支持 Fuchsia 中的 [Sandboxing](https://fuchsia.dev/fuchsia-src/concepts/process/sandboxing)
 
+## Where to Track Previledges to Perform Syscalls
 
+TODO
 
+## Where to Limit Memory & CPU
 
+TODO
 
 ## Security Concerns
 
-- OOM kill is **incomplete**
+- [OOM kill system is **incomplete**](https://cs.opensource.google/fuchsia/fuchsia/+/main:zircon/kernel/object/include/object/job_dispatcher.h;l=226)
+  - 但是还没搞清楚到底 incomplete 在哪里
