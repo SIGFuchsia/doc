@@ -1,11 +1,24 @@
 site_name: SIGFuchsia-Doc
-site_url: https://sigfuchsia.github.io/doc/
+site_url: https://sigfuchsia.github.io/doc
+repo_url: https://github.com/SIGFuchsia/doc
+repo_name: SIGFuchsia/doc
 theme:
   name: material
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      toggle:
+        icon: material/toggle-switch-off-outline
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      toggle:
+        icon: material/toggle-switch
+        name: Switch to light mode
 nav:
   - Home: index.md
   - Basic: 
-    - Basic: basic/basic.md
+    - 'Jobs & Process': basic/job-process.md
   - Play:
     - 'DoS on Fuchsia': play/dos.md
     - 'Boot Fuchsia on NUC': play/boot.md
@@ -18,3 +31,6 @@ nav:
 markdown_extensions:
   - pymdownx.highlight
   - pymdownx.superfences
+  - pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
