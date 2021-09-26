@@ -5,7 +5,7 @@ Job & Process
 
 1. Job 和 Process 的不同
 2. Job 存在的意义
-3. 
+3. Job 功能在代码层面的对应
 
 ## 相关链接
 
@@ -94,4 +94,4 @@ TODO
 ## Security Concerns
 
 - [OOM kill system is **incomplete**](https://cs.opensource.google/fuchsia/fuchsia/+/main:zircon/kernel/object/include/object/job_dispatcher.h;l=226)
-  - 但是还没搞清楚到底 incomplete 在哪里
+    - 但是还没搞清楚到底 incomplete 在哪里
