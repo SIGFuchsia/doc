@@ -21,6 +21,7 @@ nav:
   - Home: index.md
   - Basic: 
     - 'Jobs & Process': basic/job-process.md
+    - 'MMU': basic/mmu.md
   - Play:
     - 'DoS on Fuchsia': play/dos.md
     - 'Boot Fuchsia on NUC': play/boot.md
