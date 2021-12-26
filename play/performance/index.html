@@ -1,0 +1,974 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://sigfuchsia.github.io/doc/play/performance/">
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.1.3">
+    
+    
+      
+        <title>Run Self-built Component - SIGFuchsia-Doc</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.edf004c2.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.e6a45f82.min.css">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="" data-md-color-accent="">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#run-component" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="SIGFuchsia-Doc" class="md-header__button md-logo" aria-label="SIGFuchsia-Doc" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            SIGFuchsia-Doc
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Run Self-built Component
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="" data-md-color-accent=""  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6zm0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4zM7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+            </label>
+          
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="" data-md-color-accent=""  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/SIGFuchsia/doc/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    SIGFuchsia/doc
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="SIGFuchsia-Doc" class="md-nav__button md-logo" aria-label="SIGFuchsia-Doc" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    SIGFuchsia-Doc
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/SIGFuchsia/doc/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    SIGFuchsia/doc
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        Home
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" data-md-state="indeterminate" type="checkbox" id="__nav_2" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          Basic
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Basic" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Basic
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../basic/job-process/" class="md-nav__link">
+        Jobs & Process
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../basic/mmu/" class="md-nav__link">
+        MMU
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          Play
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Play" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Play
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dos/" class="md-nav__link">
+        DoS on Fuchsia
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../boot/" class="md-nav__link">
+        Boot Fuchsia on NUC
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Run Self-built Component
+      </a>
+      
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" data-md-state="indeterminate" type="checkbox" id="__nav_4" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          Troubles
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Troubles" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Troubles
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../troubles/qt-missing-xcb/" class="md-nav__link">
+        [Solved] QT Missing xcb
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../troubles/missing-ktrace-dump/" class="md-nav__link">
+        [Solved] Missing ktrace-dump
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../troubles/nuc-boot-missing-partition/" class="md-nav__link">
+        Missing Partition when Booting on NUC
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../about/" class="md-nav__link">
+        About
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+<a href="https://github.com/SIGFuchsia/doc/edit/master/docs/play/performance.md" title="Edit this page" class="md-content__button md-icon">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+</a>
+
+
+<h1 id="run-component">Run Component</h1>
+<ul>
+<li><strong>How to create a component?</strong></li>
+</ul>
+<p>Just follow the official tutorial is okay.</p>
+<ul>
+<li>
+<p><strong>How to run an example component?</strong></p>
+</li>
+<li>
+<p>On <code>Term 1</code>, use below commands.</p>
+<div class="highlight"><pre><span></span><code>fx <span class="nb">set</span> workstation.x64 --with //examples/hello_world
+fx build
+fx list-packages                    <span class="c1"># to check if hello-world is included</span>
+fx vdl start -N --software-gpu      <span class="c1"># start the FEMU with network and software GPU</span>
+</code></pre></div>
+<p>Then, <code>Term 1</code> will output the following. The last line tells us how to communicate to this device (emulator) using <code>fx</code> and <code>ffx</code> tools provided by Google.</p>
+<div class="highlight"><pre><span></span><code><span class="o">[</span>fvdl<span class="o">]</span> Using fuchsia build dir: <span class="s2">&quot;/home/fuchsia/fuchsia/fuchsia/out/default&quot;</span>
+<span class="o">[</span>fvdl<span class="o">]</span> Found Fuchsia root directory <span class="s2">&quot;/home/fuchsia/fuchsia/fuchsia&quot;</span>
+<span class="m">2021</span>/09/05 <span class="m">12</span>:51:13 <span class="o">[</span>info<span class="o">]</span> FVD Properties:
+device_spec:  <span class="o">{</span>
+horizontal_resolution:  <span class="m">1280</span>
+vertical_resolution:  <span class="m">800</span>
+vm_heap:  <span class="m">192</span>
+ram:  <span class="m">8192</span>
+cache:  <span class="m">32</span>
+screen_density:  <span class="m">240</span>
+<span class="o">}</span>
+fvm_size:  <span class="s2">&quot;2G&quot;</span>
+gpu:  <span class="s2">&quot;swiftshader_indirect&quot;</span>
+<span class="m">2021</span>/09/05 <span class="m">12</span>:51:13 <span class="o">[</span>info<span class="o">]</span> images: using fvm tool from /home/fuchsia/fuchsia/fuchsia/out/default/host_x64/fvm
+<span class="m">2021</span>/09/05 <span class="m">12</span>:51:13 <span class="o">[</span>info<span class="o">]</span> images: using zbi tool from /home/fuchsia/fuchsia/fuchsia/out/default/host_x64/zbi
+<span class="m">2021</span>/09/05 <span class="m">12</span>:51:14 <span class="o">[</span>info<span class="o">]</span> Resizing /tmp/launcher1019998335/femu_fvm file to 2G
+<span class="m">2021</span>/09/05 <span class="m">12</span>:51:14 <span class="o">[</span>info<span class="o">]</span> found fuchsia board architecture: x64
+<span class="m">2021</span>/09/05 <span class="m">12</span>:51:14 <span class="o">[</span>info<span class="o">]</span> running on host architecture: amd64
+<span class="m">2021</span>/09/05 <span class="m">12</span>:51:14 <span class="o">[</span>info<span class="o">]</span> device: <span class="nv">DISPLAY</span><span class="o">=</span>:0
+<span class="m">2021</span>/09/05 <span class="m">12</span>:51:14 /home/fuchsia/fuchsia/fuchsia/prebuilt/third_party/aemu/linux-x64/emulator -feature VirtioInput,GLDirectMem,Vulkan,RefCountPipe,KVM -metrics-collection -no-hidpi-scaling -grpc <span class="m">55477</span> -rtcfps <span class="m">30</span> -gpu swiftshader_indirect -window-size 1280x800 -no-location-ui -fuchsia -kernel /tmp/vdl_staging_hxnUxq/femu_kernel -initrd /tmp/launcher1019998335/femu_zircona-ed25519 -m 8192M -vga none -device virtio-keyboard-pci -smp <span class="m">4</span>,threads<span class="o">=</span><span class="m">2</span> -drive <span class="nv">file</span><span class="o">=</span>/tmp/launcher1019998335/femu_fvm,format<span class="o">=</span>raw,if<span class="o">=</span>none,id<span class="o">=</span>vdisk -device virtio-blk-pci,drive<span class="o">=</span>vdisk -serial stdio -machine q35 -device isa-debug-exit,iobase<span class="o">=</span>0xf4,iosize<span class="o">=</span>0x04 -enable-kvm -cpu host,migratable<span class="o">=</span>no,+invtsc -device virtio_input_multi_touch_pci_1 -soundhw hda -netdev <span class="nv">type</span><span class="o">=</span>tap,ifname<span class="o">=</span>qemu,id<span class="o">=</span>net0,script<span class="o">=</span>no,downscript<span class="o">=</span>no -device virtio-net-pci,vectors<span class="o">=</span><span class="m">8</span>,netdev<span class="o">=</span>net0,mac<span class="o">=</span><span class="m">52</span>:54:00:63:5e:7a -append <span class="s2">&quot;verbose kernel.serial=legacy TERM=xterm-256color kernel.entropy-mixin=42ac2452e99c1c979ebfca03bce0cbb14126e4021a6199ccfeca217999c0aaa0 kernel.halt-on-panic=true zircon.nodename=fuchsia-5254-0063-5e7a kernel.lockup-detector.critical-section-fatal-threshold-ms=0 kernel.lockup-detector.critical-section-threshold-ms=5000 kernel.lockup-detector.heartbeat-age-fatal-threshold-ms=0&quot;</span>
+<span class="m">2021</span>/09/05 <span class="m">12</span>:51:14 Starting emulator
+<span class="m">2021</span>/09/05 <span class="m">12</span>:51:16 <span class="o">[</span>info<span class="o">]</span> Waiting <span class="k">for</span> emulator to start...
+<span class="m">2021</span>/09/05 <span class="m">12</span>:51:19 <span class="o">[</span>info<span class="o">]</span> Waiting <span class="k">for</span> emulator to start...
+<span class="m">2021</span>/09/05 <span class="m">12</span>:51:22 <span class="o">[</span>info<span class="o">]</span> Waiting <span class="k">for</span> emulator to start...
+<span class="m">2021</span>/09/05 <span class="m">12</span>:51:25 <span class="o">[</span>info<span class="o">]</span> Waiting <span class="k">for</span> emulator to start...
+<span class="m">2021</span>/09/05 <span class="m">12</span>:51:28 <span class="o">[</span>info<span class="o">]</span> Waiting <span class="k">for</span> emulator to start...
+<span class="m">2021</span>/09/05 <span class="m">12</span>:51:31 <span class="o">[</span>info<span class="o">]</span> Waiting <span class="k">for</span> emulator to start...
+<span class="m">2021</span>/09/05 <span class="m">12</span>:51:32 <span class="o">[</span>info<span class="o">]</span> Found device address: fe80::53d0:df2:3acd:baf6%brqemu
+<span class="m">2021</span>/09/05 <span class="m">12</span>:51:32 Fuchsia Image version: <span class="m">2021</span>-09-03T03:58:43+00:00
+<span class="m">2021</span>/09/05 <span class="m">12</span>:51:32 Finished starting up and the device can be reached via ssh.
+<span class="m">2021</span>/09/05 <span class="m">12</span>:51:32  From Start <span class="p">|</span> Duration <span class="p">|</span> Event Name
+<span class="m">2021</span>/09/05 <span class="m">12</span>:51:32      <span class="m">19</span>.28  <span class="p">|</span>   <span class="m">19</span>.28  <span class="p">|</span> Fuchsiastart
+To support fx tools on emulator, please run <span class="s2">&quot;fx set-device fuchsia-5254-0063-5e7a&quot;</span>
+$ 
+</code></pre></div>
+</li>
+<li>
+<p>On <code>Term 2</code>.</p>
+<div class="highlight"><pre><span></span><code>fx set-device fuchsia-5254-0063-5e7a
+fx serve-updates
+</code></pre></div>
+<p>Then, the output.</p>
+<div class="highlight"><pre><span></span><code><span class="m">2021</span>-09-05 <span class="m">12</span>:55:10 <span class="o">[</span>serve-updates<span class="o">]</span> Discovery...
+<span class="m">2021</span>-09-05 <span class="m">12</span>:55:11 <span class="o">[</span>serve-updates<span class="o">]</span> Device up
+<span class="m">2021</span>-09-05 <span class="m">12</span>:55:11 <span class="o">[</span>serve-updates<span class="o">]</span> Registering devhost as update <span class="nb">source</span>
+<span class="m">2021</span>-09-05 <span class="m">12</span>:55:11 <span class="o">[</span>serve-updates<span class="o">]</span> Ready to push packages!
+<span class="m">2021</span>-09-05 <span class="m">12</span>:55:12 <span class="o">[</span>serve-updates<span class="o">]</span> Target uptime: <span class="m">236</span>
+<span class="m">2021</span>-09-05 <span class="m">12</span>:55:37 <span class="o">[</span>pm auto<span class="o">]</span> adding client: <span class="o">[</span>fe80::53d0:df2:3acd:baf6%brqemu<span class="o">]</span>:46623
+<span class="m">2021</span>-09-05 <span class="m">12</span>:55:37 <span class="o">[</span>pm auto<span class="o">]</span> client count: <span class="m">1</span>
+</code></pre></div>
+</li>
+<li>
+<p>On <code>Term 3</code>, use <code>ffx</code> tool to further control and manage all devices, including NUC and FEMU.</p>
+<p>This command lists the components.</p>
+<div class="highlight"><pre><span></span><code>fx ffx --target fuchsia-5254-0063-5e7a component list
+</code></pre></div>
+<p>This runs the example component using URL.</p>
+<div class="highlight"><pre><span></span><code>ffx --target fuchsia-5254-0063-5e7a component run fuchsia-pkg://fuchsia.com/hello-world#meta/hello-world-cpp.cm
+</code></pre></div>
+<p>And if we want to see the log using <code>fx</code>, we can run <code>fx log --only hello-world</code> on <code>Term 4</code>.</p>
+<div class="highlight"><pre><span></span><code><span class="o">[</span><span class="m">00262</span>.641762<span class="o">][</span><span class="m">25256</span><span class="o">][</span><span class="m">25258</span><span class="o">][</span>pkg-resolver<span class="o">]</span> INFO: updated <span class="nb">local</span> TUF metadata <span class="k">for</span> <span class="s2">&quot;fuchsia-pkg://devhost&quot;</span> to version RepoVersions <span class="o">{</span> root: <span class="m">7</span>, timestamp: Some<span class="o">(</span><span class="m">1630674370</span><span class="o">)</span>, snapshot: Some<span class="o">(</span><span class="m">1630674370</span><span class="o">)</span>, targets: Some<span class="o">(</span><span class="m">1630674370</span><span class="o">)</span> <span class="o">}</span> <span class="k">while</span> getting merkle <span class="k">for</span> TargetPath<span class="o">(</span><span class="s2">&quot;hello-world/0&quot;</span><span class="o">)</span>
+<span class="o">[</span><span class="m">00262</span>.665920<span class="o">][</span><span class="m">25256</span><span class="o">][</span><span class="m">25258</span><span class="o">][</span>pkg-resolver<span class="o">]</span> INFO: Fetching blobs <span class="k">for</span> fuchsia-pkg://devhost/hello-world: <span class="o">[</span>
+    3d6bb0e691e7c2591c37674c79e33eab6e5625f5756043463497b3e24f72c089,
+    4090c9eaf6476287a7904efc56443406cef53399bf205ac3155b4672359299f7,
+    4d36db65b5b9e8c4bf0d0af5a1b45a94da8f1ab004779b5ff1d9eee804dded38,
+    4e99f044c370ce1fbd42fb20725a5ae53c5cd8aea56309f5f1a35eb67a2c93ff,
+    5a758135fc9ba99df2b2bb539d4bbab38a43a69249d31e61730ece2ed7a189b7,
+    990d5a92889176cfd4564564e830201e37e4ab738d0286a3183b1e65fde871a0,
+<span class="o">]</span>
+<span class="o">[</span><span class="m">00262</span>.717444<span class="o">][</span><span class="m">25256</span><span class="o">][</span><span class="m">25258</span><span class="o">][</span>pkg-resolver<span class="o">]</span> INFO: resolved fuchsia-pkg://fuchsia.com/hello-world as fuchsia-pkg://devhost/hello-world to b09363cb388e98b85459ca091338e00ac66f523d9e2efb8754e0ac3f6ba8aac6 with TUF
+<span class="o">[</span><span class="m">00262</span>.729115<span class="o">][</span><span class="m">1186</span><span class="o">][</span><span class="m">1298</span><span class="o">][</span>ffx-laboratory:hello-world-cpp<span class="o">]</span> INFO: Hello, World!
+</code></pre></div>
+</li>
+<li>
+<p><strong>How to add a third party package to <code>/bin</code> or <code>/boot/bin</code>?</strong></p>
+</li>
+</ul>
+<p>To build our third party packages and add one or more packages to the shell, which is convenient to run by bypassing the <code>fx</code> server and <code>ffx</code> device manager, we can follow the steps. Take the <code>//third-party/benchmark</code>, a Google's benchmark framework, as an example.</p>
+<ul>
+<li>
+<p>Modify the <code>GN</code> build system.</p>
+<p>Modify <code>//third-party/benchmark/BUILD.gn</code>.</p>
+<div class="highlight"><pre><span></span><code><span class="gh">diff --git a/BUILD.gn b/BUILD.gn</span>
+<span class="gh">index 4cb9f78..028fae1 100644</span>
+<span class="gd">--- a/BUILD.gn</span>
+<span class="gi">+++ b/BUILD.gn</span>
+<span class="gu">@@ -2,14 +2,17 @@</span>
+ # Use of this source code is governed by a BSD-style license that can be
+ # found in the LICENSE file.
+
+<span class="gi">+import(&quot;//build/components.gni&quot;)</span>
+<span class="gi">+</span>
+ config(&quot;benchmark_config&quot;) {
+   visibility = [ &quot;:*&quot; ]
+   include_dirs = [ &quot;include&quot; ]
+ }
+
+<span class="gd">-static_library(&quot;benchmark&quot;) {</span>
+<span class="gd">-  testonly = true</span>
+<span class="gi">+executable(&quot;benchmark_test_bin&quot;) {</span>
+<span class="gi">+  output_name = &quot;benchmark_test&quot;</span>
+   sources = [
+<span class="gi">+    &quot;test/benchmark_test.cc&quot;,</span>
+     &quot;src/benchmark.cc&quot;,
+     &quot;src/benchmark_register.cc&quot;,
+     &quot;src/colorprint.cc&quot;,
+<span class="gu">@@ -31,3 +34,7 @@ static_library(&quot;benchmark&quot;) {</span>
+   ]
+   configs += [ &quot;//build/config:Wno-conversion&quot; ]
+ }
+<span class="gi">+</span>
+<span class="gi">+fuchsia_shell_package(&quot;benchmark&quot;) {</span>
+<span class="gi">+  deps = [ &quot;:benchmark_test_bin&quot; ]</span>
+<span class="gi">+}</span>
+</code></pre></div>
+<p>Modify <code>//build/config/BUILD.gn</code>.</p>
+<div class="highlight"><pre><span></span><code><span class="gh">diff --git a/build/config/BUILD.gn b/build/config/BUILD.gn</span>
+<span class="gh">index ff00c465695..e432a8cefcf 100644</span>
+<span class="gd">--- a/build/config/BUILD.gn</span>
+<span class="gi">+++ b/build/config/BUILD.gn</span>
+<span class="gu">@@ -983,6 +983,7 @@ config(&quot;Wno-conversion&quot;) {</span>
+     &quot;//third_party/opus/*&quot;,
+     &quot;//third_party/rust_crates/compat/brotli:*&quot;,
+     &quot;//third_party/zstd:*&quot;,
+<span class="gi">+    &quot;//third_party/benchmark:*&quot;,</span>
+     &quot;//tools/bootserver_old:*&quot;,
+     &quot;//tools/fidlcat:*&quot;,
+     &quot;//tools/fidlcat/interception_tests:*&quot;,
+</code></pre></div>
+<p>Modify <code>garnet/packages/prod/BUILD.gn</code>. Here, I have no idea what should be in the <code>garnet</code> code area and what third party code should be configured in <code>garnet</code>. I see the <code>sbase</code> package is in this file so I just follow.</p>
+<div class="highlight"><pre><span></span><code><span class="gh">diff --git a/garnet/packages/prod/BUILD.gn b/garnet/packages/prod/BUILD.gn</span>
+<span class="gh">index e96345106df..19f7abf9877 100644</span>
+<span class="gd">--- a/garnet/packages/prod/BUILD.gn</span>
+<span class="gi">+++ b/garnet/packages/prod/BUILD.gn</span>
+<span class="gu">@@ -39,6 +39,7 @@ group(&quot;all&quot;) {</span>
+     &quot;//garnet/packages/prod:network-speed-test&quot;,
+     &quot;//garnet/packages/prod:run&quot;,
+     &quot;//garnet/packages/prod:sbase&quot;,
+<span class="gi">+    &quot;//garnet/packages/prod:benchmark&quot;,</span>
+     &quot;//garnet/packages/prod:scenic&quot;,
+     &quot;//garnet/packages/prod:sched&quot;,
+     &quot;//garnet/packages/prod:setui_client&quot;,
+<span class="gu">@@ -164,6 +165,7 @@ group(&quot;cmdutils&quot;) {</span>
+     &quot;//garnet/bin/uname&quot;,
+     &quot;//garnet/packages/prod:hwstress&quot;,
+     &quot;//garnet/packages/prod:sbase&quot;,
+<span class="gi">+    &quot;//garnet/packages/prod:benchmark&quot;,</span>
+     &quot;//garnet/packages/prod:sched&quot;,
+   ]
+ }
+<span class="gu">@@ -258,6 +260,11 @@ group(&quot;run&quot;) {</span>
+   public_deps = [ &quot;//garnet/bin/run&quot; ]
+ }
+
+<span class="gi">+group(&quot;benchmark&quot;) {</span>
+<span class="gi">+  public_deps = [ &quot;//third_party/benchmark:benchmark&quot; ]</span>
+<span class="gi">+  deps = [ &quot;//build/validate:non_production_tag&quot; ]</span>
+<span class="gi">+}</span>
+<span class="gi">+</span>
+ group(&quot;sbase&quot;) {
+   public_deps = [
+     &quot;//third_party/sbase:basename&quot;,
+</code></pre></div>
+</li>
+<li>
+<p>Fix the bug in the example of benchmark provided by Google.</p>
+<div class="highlight"><pre><span></span><code><span class="gh">diff --git a/test/benchmark_test.cc b/test/benchmark_test.cc</span>
+<span class="gh">index d832f81..5ab2191 100644</span>
+<span class="gd">--- a/test/benchmark_test.cc</span>
+<span class="gi">+++ b/test/benchmark_test.cc</span>
+<span class="gu">@@ -57,7 +57,7 @@ static void BM_Factorial(benchmark::State&amp; state) {</span>
+   // Prevent compiler optimizations
+   std::stringstream ss;
+   ss &lt;&lt; fac_42;
+<span class="gd">-  state.SetLabel(ss.str());</span>
+<span class="gi">+  state.SetLabel(ss.str().c_str());</span>
+ }
+ BENCHMARK(BM_Factorial);
+ BENCHMARK(BM_Factorial)-&gt;UseRealTime();
+<span class="gu">@@ -67,7 +67,7 @@ static void BM_CalculatePiRange(benchmark::State&amp; state) {</span>
+   while (state.KeepRunning()) pi = CalculatePi(state.range(0));
+   std::stringstream ss;
+   ss &lt;&lt; pi;
+<span class="gd">-  state.SetLabel(ss.str());</span>
+<span class="gi">+  state.SetLabel(ss.str().c_str());</span>
+ }
+ BENCHMARK_RANGE(BM_CalculatePiRange, 1, 1024 * 1024);
+</code></pre></div>
+</li>
+<li>
+<p>Run <code>benchmark_test</code>, the name of the executable, in emulator shell.</p>
+<div class="highlight"><pre><span></span><code>$ benchmark_test
+Run on <span class="o">(</span><span class="m">1</span> X <span class="m">2592</span>.14 MHz CPU <span class="o">)</span>
+<span class="m">2021</span>-09-06 <span class="m">11</span>:41:17
+***WARNING*** Library was built as DEBUG. Timings may be affected.
+Benchmark                                         Time           CPU Iterations
+-------------------------------------------------------------------------------
+BM_Factorial                                     <span class="m">20</span> ns         <span class="m">20</span> ns   <span class="m">33472229</span> <span class="m">40320</span>
+BM_Factorial/real_time                           <span class="m">20</span> ns         <span class="m">20</span> ns   <span class="m">35920865</span> <span class="m">40320</span>
+BM_CalculatePiRange/1                            <span class="m">13</span> ns         <span class="m">13</span> ns   <span class="m">54041014</span> <span class="m">0</span>
+BM_CalculatePiRange/8                            <span class="m">41</span> ns         <span class="m">41</span> ns   <span class="m">17306448</span> <span class="m">3</span>.28374
+BM_CalculatePiRange/64                          <span class="m">259</span> ns        <span class="m">259</span> ns    <span class="m">2660336</span> <span class="m">3</span>.15746
+BM_CalculatePiRange/512                        <span class="m">2016</span> ns       <span class="m">2016</span> ns     <span class="m">353513</span> <span class="m">3</span>.14355
+BM_CalculatePiRange/4k                        <span class="m">15967</span> ns      <span class="m">15967</span> ns      <span class="m">44053</span> <span class="m">3</span>.14184
+BM_CalculatePiRange/32k                      <span class="m">126546</span> ns     <span class="m">126546</span> ns       <span class="m">5487</span> <span class="m">3</span>.14162
+BM_CalculatePiRange/256k                    <span class="m">1012777</span> ns    <span class="m">1012781</span> ns        <span class="m">689</span> <span class="m">3</span>.1416
+BM_CalculatePiRange/1024k                   <span class="m">4095950</span> ns    <span class="m">4095971</span> ns        <span class="m">139</span> <span class="m">3</span>.14159
+BM_CalculatePi/threads:8                        <span class="m">789</span> ns       <span class="m">3954</span> ns     <span class="m">176368</span>
+BM_CalculatePi/threads:1                       <span class="m">3975</span> ns       <span class="m">3975</span> ns     <span class="m">173389</span>
+BM_CalculatePi/threads:2                       <span class="m">2001</span> ns       <span class="m">4003</span> ns     <span class="m">175916</span>
+BM_CalculatePi/threads:4                        <span class="m">995</span> ns       <span class="m">3906</span> ns     <span class="m">177236</span>
+BM_CalculatePi/threads:8                        <span class="m">753</span> ns       <span class="m">3841</span> ns     <span class="m">174008</span>
+BM_CalculatePi/threads:16                       <span class="m">657</span> ns       <span class="m">4052</span> ns     <span class="m">166176</span>
+BM_CalculatePi/threads:32                       <span class="m">256</span> ns       <span class="m">3899</span> ns     <span class="m">160064</span>
+BM_CalculatePi/threads:1                       <span class="m">3941</span> ns       <span class="m">3941</span> ns     <span class="m">178150</span>
+BM_SetInsert/1024/1                           <span class="m">62785</span> ns      <span class="m">62206</span> ns      <span class="m">11298</span>   <span class="m">62</span>.7956kB/s   <span class="m">15</span>.6989k items/s
+BM_SetInsert/4k/1                            <span class="m">252802</span> ns     <span class="m">251994</span> ns       <span class="m">2774</span>   <span class="m">15</span>.5013kB/s   <span class="m">3</span>.87534k items/s
+BM_SetInsert/8k/1                            <span class="m">529103</span> ns     <span class="m">526835</span> ns       <span class="m">1285</span>   <span class="m">7</span>.41456kB/s   <span class="m">1</span>.85364k items/s
+BM_SetInsert/1024/8                           <span class="m">68558</span> ns      <span class="m">68193</span> ns      <span class="m">10335</span>   <span class="m">458</span>.256kB/s   <span class="m">114</span>.564k items/s
+BM_SetInsert/4k/8                            <span class="m">268487</span> ns     <span class="m">266804</span> ns       <span class="m">2635</span>   <span class="m">117</span>.127kB/s   <span class="m">29</span>.2818k items/s
+BM_SetInsert/8k/8                            <span class="m">535696</span> ns     <span class="m">533019</span> ns       <span class="m">1323</span>   <span class="m">58</span>.6283kB/s   <span class="m">14</span>.6571k items/s
+BM_SetInsert/1024/10                          <span class="m">70453</span> ns      <span class="m">69789</span> ns       <span class="m">9930</span>   <span class="m">559</span>.722kB/s   <span class="m">139</span>.931k items/s
+BM_SetInsert/4k/10                           <span class="m">271270</span> ns     <span class="m">271624</span> ns       <span class="m">2553</span>   <span class="m">143</span>.811kB/s   <span class="m">35</span>.9528k items/s
+BM_SetInsert/8k/10                           <span class="m">535577</span> ns     <span class="m">533078</span> ns       <span class="m">1292</span>   <span class="m">73</span>.2773kB/s   <span class="m">18</span>.3193k items/s
+BM_Sequential&lt;std::vector&lt;int&gt;,int&gt;/1            <span class="m">62</span> ns         <span class="m">62</span> ns   <span class="m">11171256</span>   <span class="m">61</span>.4717MB/s   <span class="m">15</span>.3679M items/s
+BM_Sequential&lt;std::vector&lt;int&gt;,int&gt;/8          <span class="m">1510</span> ns       <span class="m">1510</span> ns     <span class="m">459005</span>   <span class="m">20</span>.2076MB/s   <span class="m">5</span>.05191M items/s
+BM_Sequential&lt;std::vector&lt;int&gt;,int&gt;/64         <span class="m">4796</span> ns       <span class="m">4795</span> ns     <span class="m">146760</span>   <span class="m">50</span>.9115MB/s   <span class="m">12</span>.7279M items/s
+BM_Sequential&lt;std::vector&lt;int&gt;,int&gt;/512       <span class="m">24337</span> ns      <span class="m">24337</span> ns      <span class="m">28851</span>   <span class="m">80</span>.2538MB/s   <span class="m">20</span>.0635M items/s
+BM_Sequential&lt;std::vector&lt;int&gt;,int&gt;/1024      <span class="m">45693</span> ns      <span class="m">45693</span> ns      <span class="m">15478</span>   <span class="m">85</span>.4887MB/s   <span class="m">21</span>.3722M items/s
+BM_Sequential&lt;std::list&lt;int&gt;&gt;/1                  <span class="m">45</span> ns         <span class="m">45</span> ns   <span class="m">15432027</span>   <span class="m">85</span>.3898MB/s   <span class="m">21</span>.3474M items/s
+BM_Sequential&lt;std::list&lt;int&gt;&gt;/8                <span class="m">1323</span> ns       <span class="m">1323</span> ns     <span class="m">495244</span>   <span class="m">23</span>.0739MB/s   <span class="m">5</span>.76847M items/s
+BM_Sequential&lt;std::list&lt;int&gt;&gt;/64              <span class="m">11765</span> ns      <span class="m">11765</span> ns      <span class="m">60333</span>   <span class="m">20</span>.7515MB/s   <span class="m">5</span>.18787M items/s
+BM_Sequential&lt;std::list&lt;int&gt;&gt;/512             <span class="m">94780</span> ns      <span class="m">94781</span> ns       <span class="m">7280</span>   <span class="m">20</span>.6068MB/s    <span class="m">5</span>.1517M items/s
+BM_Sequential&lt;std::list&lt;int&gt;&gt;/1024           <span class="m">191727</span> ns     <span class="m">191728</span> ns       <span class="m">3681</span>   <span class="m">20</span>.3739MB/s   <span class="m">5</span>.09349M items/s
+BM_Sequential&lt;std::vector&lt;int&gt;, int&gt;/512      <span class="m">24178</span> ns      <span class="m">24178</span> ns      <span class="m">29185</span>   <span class="m">80</span>.7815MB/s   <span class="m">20</span>.1954M items/s
+BM_StringCompare/1                               <span class="m">79</span> ns         <span class="m">79</span> ns    <span class="m">8741679</span>
+BM_StringCompare/8                               <span class="m">83</span> ns         <span class="m">83</span> ns    <span class="m">7820085</span>
+BM_StringCompare/64                             <span class="m">107</span> ns        <span class="m">107</span> ns    <span class="m">6417652</span>
+BM_StringCompare/512                            <span class="m">323</span> ns        <span class="m">323</span> ns    <span class="m">2179937</span>
+</code></pre></div>
+</li>
+<li>
+<p>Run our own component in <code>/boot/bin</code>.</p>
+<p>Copy the <code>//example/hello_world/cpp</code> to <code>//src/bringup/bin/hello_world</code>. Add the <code>//src/bringup/bin/hello-world:bin</code> to the dependencies of the <code>zedboot</code> group to <code>//src/bringup/bundles/BUILD.gn</code>. Then, we can even run the executable even with the <code>bringup</code> configuration.</p>
+</li>
+<li>
+<p>Write some micro-benches using the framework.</p>
+<p>Fuchsia and Linux have different ideas on the basic concepts. So, micro-benches using <code>POSIX API</code> cannot be ported. We must find the functional counterpart. Currently, we add a file operation test (the following code to <code>//third_party/benchmark/syscall_test.cc</code>) as a micro-bench test. Then, we update the dependency of <code>//third_party/benchmark/BUILD.gn</code>. We can use <code>dm &lt;PATH&gt;</code> to see which file system is. I see <code>/boot</code> is <code>memfs</code> as expected, <code>/data</code> is <code>minfs</code> and others like <code>/pkg</code> and <code>/bin</code> are unknown. And the <code>mkdir touch rm</code> commands fail on these unknown areas. We might have to <strong>find out the reason</strong>. Also, we use more language-based standard library rather than something like <code>unistd</code> and <code>libfdio</code> for simplicity and generalization.</p>
+<div class="highlight"><pre><span></span><code><span class="cp">#define USE_ZIRCON_ZX_SYSCALL</span>
+
+<span class="cp">#ifdef USE_ZIRCON_ZX_SYSCALL</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;benchmark/benchmark_api.h&quot;</span><span class="cp"></span>
+<span class="cp">#else</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;benchmark/benchmark.h&quot;</span><span class="cp"></span>
+<span class="cp">#endif</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span><span class="cp"></span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;fstream&gt;</span><span class="cp"></span>
+
+<span class="k">namespace</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="c1">// zircon use fdio.so library to do file operations, rather than posix api.</span>
+<span class="c1">// fdio knows how to speak to those other Fuchsia services over Channel IPC, </span>
+<span class="c1">// and provides a Posix-like layer for libc to expose. </span>
+<span class="c1">// Sockets are similarly implemented via fdio communicating with the userspace network stack.</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">file_write</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">file_size</span><span class="p">,</span><span class="w"> </span><span class="n">benchmark</span><span class="o">::</span><span class="n">State</span><span class="o">&amp;</span><span class="w"> </span><span class="n">state</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">buf</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="kt">char</span><span class="p">[</span><span class="n">file_size</span><span class="p">];</span><span class="w"></span>
+<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">file_size</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="n">buf</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sc">&#39;A&#39;</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="k">else</span><span class="w"> </span><span class="n">buf</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sc">&#39;B&#39;</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">ofstream</span><span class="w"> </span><span class="n">ofs</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="n">state</span><span class="p">.</span><span class="n">ResumeTiming</span><span class="p">();</span><span class="w"></span>
+<span class="cp">#ifdef USE_ZIRCON_ZX_SYSCALL</span>
+<span class="w">  </span><span class="n">ofs</span><span class="p">.</span><span class="n">open</span><span class="p">(</span><span class="s">&quot;/data/test_file.txt&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="cp">#else</span>
+<span class="w">  </span><span class="n">ofs</span><span class="p">.</span><span class="n">open</span><span class="p">(</span><span class="s">&quot;test_file.txt&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="cp">#endif</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ofs</span><span class="p">.</span><span class="n">is_open</span><span class="p">())</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">ofs</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="n">buf</span><span class="p">,</span><span class="w"> </span><span class="n">file_size</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">ofs</span><span class="p">.</span><span class="n">close</span><span class="p">();</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;[error] in file write, cannot open file.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="w">  </span><span class="n">state</span><span class="p">.</span><span class="n">PauseTiming</span><span class="p">();</span><span class="w"></span>
+<span class="w">  </span><span class="k">delete</span><span class="p">[]</span><span class="w"> </span><span class="n">buf</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">file_read_rm</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">file_size</span><span class="p">,</span><span class="w"> </span><span class="n">benchmark</span><span class="o">::</span><span class="n">State</span><span class="o">&amp;</span><span class="w"> </span><span class="n">state</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">buf</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="kt">char</span><span class="p">[</span><span class="n">file_size</span><span class="p">];</span><span class="w"></span>
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">ifstream</span><span class="w"> </span><span class="n">ifs</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="n">state</span><span class="p">.</span><span class="n">ResumeTiming</span><span class="p">();</span><span class="w"></span>
+<span class="cp">#ifdef USE_ZIRCON_ZX_SYSCALL</span>
+<span class="w">  </span><span class="n">ifs</span><span class="p">.</span><span class="n">open</span><span class="p">(</span><span class="s">&quot;/data/test_file.txt&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="cp">#else</span>
+<span class="w">  </span><span class="n">ifs</span><span class="p">.</span><span class="n">open</span><span class="p">(</span><span class="s">&quot;test_file.txt&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="cp">#endif</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ifs</span><span class="p">.</span><span class="n">is_open</span><span class="p">())</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">ifs</span><span class="p">.</span><span class="n">read</span><span class="p">(</span><span class="n">buf</span><span class="p">,</span><span class="w"> </span><span class="n">file_size</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">ifs</span><span class="p">.</span><span class="n">close</span><span class="p">();</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;[error] in file read, cannot open file.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="w">  </span><span class="n">state</span><span class="p">.</span><span class="n">PauseTiming</span><span class="p">();</span><span class="w"></span>
+<span class="w">  </span><span class="k">delete</span><span class="p">[]</span><span class="w"> </span><span class="n">buf</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">BM_FileOp</span><span class="p">(</span><span class="n">benchmark</span><span class="o">::</span><span class="n">State</span><span class="o">&amp;</span><span class="w"> </span><span class="n">state</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">SZ_PAGE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1024</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">state</span><span class="p">.</span><span class="n">KeepRunning</span><span class="p">())</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">state</span><span class="p">.</span><span class="n">PauseTiming</span><span class="p">();</span><span class="w"></span>
+<span class="w">    </span><span class="n">file_write</span><span class="p">(</span><span class="n">state</span><span class="p">.</span><span class="n">range</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">SZ_PAGE</span><span class="p">,</span><span class="w"> </span><span class="n">state</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">file_read_rm</span><span class="p">(</span><span class="n">state</span><span class="p">.</span><span class="n">range</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">SZ_PAGE</span><span class="p">,</span><span class="w"> </span><span class="n">state</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">state</span><span class="p">.</span><span class="n">ResumeTiming</span><span class="p">();</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+<span class="c1">// test 1k, 10k and 1m file</span>
+<span class="n">BENCHMARK</span><span class="p">(</span><span class="n">BM_FileOp</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">Arg</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">Arg</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">Arg</span><span class="p">(</span><span class="mi">1000</span><span class="p">);</span><span class="w"></span>
+
+<span class="n">BENCHMARK_MAIN</span><span class="p">();</span><span class="w"></span>
+
+<span class="cp">#undef USE_ZIRCON_ZX_SYSCALL</span>
+</code></pre></div>
+<p>Then, run <code>fx set core.qemu-x64 --with-base //bundles:tools</code> and <code>fx build</code>. We use the <code>core</code> configuration because our NUC 9 can only run <code>core</code> configuration.</p>
+<p>Run on emulator to test it!</p>
+<div class="highlight"><pre><span></span><code>$ benchmark
+Run on <span class="o">(</span><span class="m">1</span> X <span class="m">2592</span>.13 MHz CPU <span class="o">)</span>
+<span class="m">2021</span>-09-08 <span class="m">10</span>:42:36
+***WARNING*** Library was built as DEBUG. Timings may be affected.
+Benchmark               Time           CPU Iterations
+-----------------------------------------------------
+BM_FileOp/1      <span class="m">29580839</span> ns     <span class="m">480812</span> ns       <span class="m">1000</span>
+BM_FileOp/10     <span class="m">36780568</span> ns     <span class="m">705535</span> ns       <span class="m">1035</span>
+BM_FileOp/1000   <span class="m">37059443</span> ns    <span class="m">8599233</span> ns         <span class="m">82</span>
+</code></pre></div>
+</li>
+<li>
+<p>Run the same tests on both Linux and Zircon on the same Intel NUC (even with same devices).</p>
+<p>First, run it on Linux.</p>
+<div class="highlight"><pre><span></span><code><span class="m">2021</span>-09-08T19:03:53+08:00
+Running ./build/test/syscall_test
+Run on <span class="o">(</span><span class="m">12</span> X <span class="m">4500</span> MHz CPU s<span class="o">)</span>
+CPU Caches:
+  L1 Data <span class="m">32</span> KiB <span class="o">(</span>x6<span class="o">)</span>
+  L1 Instruction <span class="m">32</span> KiB <span class="o">(</span>x6<span class="o">)</span>
+  L2 Unified <span class="m">256</span> KiB <span class="o">(</span>x6<span class="o">)</span>
+  L3 Unified <span class="m">12288</span> KiB <span class="o">(</span>x1<span class="o">)</span>
+Load Average: <span class="m">0</span>.52, <span class="m">0</span>.46, <span class="m">0</span>.23
+***WARNING*** CPU scaling is enabled, the benchmark real <span class="nb">time</span> measurements may be noisy and will incur extra overhead.
+***WARNING*** Library was built as DEBUG. Timings may be affected.
+---------------------------------------------------------
+Benchmark               Time             CPU   Iterations
+---------------------------------------------------------
+BM_FileOp/1         <span class="m">36055</span> ns        <span class="m">26183</span> ns        <span class="m">26937</span>
+BM_FileOp/10        <span class="m">29221</span> ns        <span class="m">29032</span> ns        <span class="m">24282</span>
+BM_FileOp/1000     <span class="m">542094</span> ns       <span class="m">541968</span> ns         <span class="m">1243</span>
+</code></pre></div>
+<p>Then, we must face the real block device. We just make a partition follow the instructions.</p>
+<div class="highlight"><pre><span></span><code>
+</code></pre></div>
+</li>
+<li>
+<p><strong>How to run native debugger and tracer?</strong></p>
+</li>
+<li>
+<p><strong>Which part of Fuchsia consumes time?</strong></p>
+</li>
+<li>
+<p><strong>How does the kernel support the component manager?</strong></p>
+</li>
+</ul>
+
+              
+            </article>
+          </div>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="../boot/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Boot Fuchsia on NUC" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Boot Fuchsia on NUC
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../../troubles/qt-missing-xcb/" class="md-footer__link md-footer__link--next" aria-label="Next: [Solved] QT Missing xcb" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              [Solved] QT Missing xcb
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.expand"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../assets/javascripts/workers/search.0bbba5b5.min.js"}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.e1a181d9.min.js"></script>
+      
+    
+  </body>
+</html>

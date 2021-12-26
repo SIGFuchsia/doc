@@ -1,0 +1,1060 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://sigfuchsia.github.io/doc/play/task/">
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.1.3">
+    
+    
+      
+        <title>Program execution. - SIGFuchsia-Doc</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.edf004c2.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.e6a45f82.min.css">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="" data-md-color-accent="">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#program-execution" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="SIGFuchsia-Doc" class="md-header__button md-logo" aria-label="SIGFuchsia-Doc" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            SIGFuchsia-Doc
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Program execution.
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="" data-md-color-accent=""  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6zm0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4zM7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+            </label>
+          
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="" data-md-color-accent=""  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/SIGFuchsia/doc/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    SIGFuchsia/doc
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="SIGFuchsia-Doc" class="md-nav__button md-logo" aria-label="SIGFuchsia-Doc" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    SIGFuchsia-Doc
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/SIGFuchsia/doc/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    SIGFuchsia/doc
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        Home
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" data-md-state="indeterminate" type="checkbox" id="__nav_2" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          Basic
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Basic" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Basic
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../basic/job-process/" class="md-nav__link">
+        Jobs & Process
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../basic/mmu/" class="md-nav__link">
+        MMU
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" data-md-state="indeterminate" type="checkbox" id="__nav_3" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          Play
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Play" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Play
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dos/" class="md-nav__link">
+        DoS on Fuchsia
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../boot/" class="md-nav__link">
+        Boot Fuchsia on NUC
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../performance/" class="md-nav__link">
+        Run Self-built Component
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" data-md-state="indeterminate" type="checkbox" id="__nav_4" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          Troubles
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Troubles" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Troubles
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../troubles/qt-missing-xcb/" class="md-nav__link">
+        [Solved] QT Missing xcb
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../troubles/missing-ktrace-dump/" class="md-nav__link">
+        [Solved] Missing ktrace-dump
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../troubles/nuc-boot-missing-partition/" class="md-nav__link">
+        Missing Partition when Booting on NUC
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../about/" class="md-nav__link">
+        About
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+<a href="https://github.com/SIGFuchsia/doc/edit/master/docs/play/task.md" title="Edit this page" class="md-content__button md-icon">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+</a>
+
+
+<h1 id="program-execution">Program execution.</h1>
+<ul>
+<li>Job.</li>
+</ul>
+<p><strong>Firstly, in front of the JobDispatcher, the author says.</strong></p>
+<div class="highlight"><pre><span></span><code><span class="c1">// This class implements the Job object kernel interface. Each Job has a parent</span>
+<span class="c1">// Job and zero or more child Jobs and zero or more Child processes. This</span>
+<span class="c1">// creates a DAG (tree) that connects every living task in the system.</span>
+<span class="c1">// This is critically important because of the bottoms up refcount nature of</span>
+<span class="c1">// the system in which the scheduler keeps alive the thread and the thread keeps</span>
+<span class="c1">// alive the process, so without the Job it would not be possible to enumerate</span>
+<span class="c1">// or control the tasks in the system for which there are no outstanding handles.</span>
+<span class="c1">//</span>
+<span class="c1">// The second important job of the Job is to apply policies that cannot otherwise</span>
+<span class="c1">// be easily enforced by capabilities, for example kernel object creation.</span>
+<span class="c1">//</span>
+<span class="c1">// The third one is to support exception propagation from the leaf tasks to</span>
+<span class="c1">// the root tasks.</span>
+<span class="c1">//</span>
+<span class="c1">// Obviously there is a special case for the &#39;root&#39; Job which its parent is null</span>
+<span class="c1">// and in the current implementation will call platform_halt() when its process</span>
+<span class="c1">// and job count reaches zero. The root job is not exposed to user mode, instead</span>
+<span class="c1">// the single child Job of the root job is given to the userboot process.</span>
+</code></pre></div>
+<ul>
+<li>
+<p>Create a Job. Get current process. Lookup the current process handle table to check if the reference has <code>ZX_RIGHT_MANAGE_JOB</code>. Get the pointer to the parent Job. Create a new Job with a kernel handle implementation and the rights. And then make the integer handle for user space. Here, the option is not used by the constructor of JobDispatcher and <strong>must be 0</strong>. The <code>RefPtr</code> versus <code>shared_ptr</code> in C++ is in https://chunminchang.github.io/blog/post/refptr-v-s-shared-ptr. And <code>handle-&gt;HasRights(desired_rights)</code> is for rights checking.</p>
+<div class="highlight"><pre><span></span><code><span class="n">zx_status_t</span><span class="w"> </span><span class="nf">sys_job_create</span><span class="p">(</span><span class="n">zx_handle_t</span><span class="w"> </span><span class="n">parent_job</span><span class="p">,</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">options</span><span class="p">,</span><span class="w"> </span><span class="n">user_out_handle</span><span class="o">*</span><span class="w"> </span><span class="n">out</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+
+<span class="w">  </span><span class="k">auto</span><span class="w"> </span><span class="n">up</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ProcessDispatcher</span><span class="o">::</span><span class="n">GetCurrent</span><span class="p">();</span><span class="w"></span>
+
+<span class="w">  </span><span class="n">fbl</span><span class="o">::</span><span class="n">RefPtr</span><span class="o">&lt;</span><span class="n">JobDispatcher</span><span class="o">&gt;</span><span class="w"> </span><span class="n">parent</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="n">zx_status_t</span><span class="w"> </span><span class="n">status</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
+<span class="w">      </span><span class="n">up</span><span class="o">-&gt;</span><span class="n">handle_table</span><span class="p">().</span><span class="n">GetDispatcherWithRights</span><span class="p">(</span><span class="n">parent_job</span><span class="p">,</span><span class="w"> </span><span class="n">ZX_RIGHT_MANAGE_JOB</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">parent</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">  </span><span class="n">KernelHandle</span><span class="o">&lt;</span><span class="n">JobDispatcher</span><span class="o">&gt;</span><span class="w"> </span><span class="n">handle</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="n">zx_rights_t</span><span class="w"> </span><span class="n">rights</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="n">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">JobDispatcher</span><span class="o">::</span><span class="n">Create</span><span class="p">(</span><span class="n">options</span><span class="p">,</span><span class="w"> </span><span class="n">ktl</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">parent</span><span class="p">),</span><span class="w"> </span><span class="o">&amp;</span><span class="n">handle</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">rights</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">status</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">ZX_OK</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="n">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">out</span><span class="o">-&gt;</span><span class="n">make</span><span class="p">(</span><span class="n">ktl</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">handle</span><span class="p">),</span><span class="w"> </span><span class="n">rights</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">status</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</code></pre></div>
+<p>Here, I am interested in <code>JobDispatcher::Create</code> and <code>out-&gt;make</code>. We can see the Job tree has a max height. The constructor of <code>new_handle</code> and <code>default_rights</code> are interesting. In fact, the <code>default_rights()</code> is in <code>//zircon/kernel/object/include/object/dispatcher.h</code>. It returns <code>def_rights</code> which is defined in the template. For JobDispatcher, <code>ZX_DEFAULT_JOB_RIGHTS</code> is the right.</p>
+<div class="highlight"><pre><span></span><code><span class="n">zx_status_t</span><span class="w"> </span><span class="nf">JobDispatcher::Create</span><span class="p">(</span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">flags</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">fbl</span><span class="o">::</span><span class="n">RefPtr</span><span class="o">&lt;</span><span class="n">JobDispatcher</span><span class="o">&gt;&amp;</span><span class="w"> </span><span class="n">parent</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                  </span><span class="n">KernelHandle</span><span class="o">&lt;</span><span class="n">JobDispatcher</span><span class="o">&gt;*</span><span class="w"> </span><span class="n">handle</span><span class="p">,</span><span class="w"> </span><span class="n">zx_rights_t</span><span class="o">*</span><span class="w"> </span><span class="n">rights</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">parent</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="k">nullptr</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">max_height</span><span class="p">()</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">ZX_ERR_OUT_OF_RANGE</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">  </span><span class="n">fbl</span><span class="o">::</span><span class="n">AllocChecker</span><span class="w"> </span><span class="n">ac</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="n">KernelHandle</span><span class="w"> </span><span class="n">new_handle</span><span class="p">(</span><span class="w"></span>
+<span class="w">      </span><span class="n">fbl</span><span class="o">::</span><span class="n">AdoptRef</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="p">(</span><span class="o">&amp;</span><span class="n">ac</span><span class="p">)</span><span class="w"> </span><span class="n">JobDispatcher</span><span class="p">(</span><span class="n">flags</span><span class="p">,</span><span class="w"> </span><span class="n">parent</span><span class="p">,</span><span class="w"> </span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">GetPolicy</span><span class="p">())));</span><span class="w"></span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">ac</span><span class="p">.</span><span class="n">check</span><span class="p">())</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">ZX_ERR_NO_MEMORY</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">parent</span><span class="o">-&gt;</span><span class="n">AddChildJob</span><span class="p">(</span><span class="n">new_handle</span><span class="p">.</span><span class="n">dispatcher</span><span class="p">()))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">ZX_ERR_BAD_STATE</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">  </span><span class="o">*</span><span class="n">rights</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">default_rights</span><span class="p">();</span><span class="w"></span>
+<span class="w">  </span><span class="o">*</span><span class="n">handle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ktl</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">new_handle</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">ZX_OK</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</code></pre></div>
+<p>For the KernelHandle (a representation of handle in kernel space), is just a class, with a reference pointer (<code>fbl::RefPtr&lt;T&gt; dispatcher_</code>) to the object. The author says as below. Here, the handler is only a kernel object with a reference. Only before it is given to the process will it have rights and owner.</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// A minimal wrapper around a Dispatcher which is owned by the kernel.</span>
+<span class="c1">//</span>
+<span class="c1">// Intended usage when creating new a Dispatcher object is:</span>
+<span class="c1">//   1. Create a KernelHandle on the stack (cannot fail)</span>
+<span class="c1">//   2. Move the RefPtr&lt;Dispatcher&gt; into the KernelHandle (cannot fail)</span>
+<span class="c1">//   3. When ready to give the handle to a process, upgrade the KernelHandle</span>
+<span class="c1">//      to a full HandleOwner via UpgradeToHandleOwner() or</span>
+<span class="c1">//      user_out_handle::make() (can fail)</span>
+<span class="c1">//</span>
+<span class="c1">// This sequence ensures that the Dispatcher&#39;s on_zero_handles() method is</span>
+<span class="c1">// called even if errors occur during or before HandleOwner creation, which</span>
+<span class="c1">// is necessary to break circular references for some Dispatcher types.</span>
+<span class="c1">//</span>
+<span class="c1">// This class is thread-unsafe and must be externally synchronized if used</span>
+<span class="c1">// across multiple threads.</span>
+</code></pre></div>
+<p>For the handle's owner, use <code>user_out_handle::make(ktl::move(handle), rights)</code> as an example. The definition is in <code>//zircon/kernel/lib/syscalls/priv.h</code>. It uses the KernelHandle or Dispatcher reference along with rights to <code>Make()</code> a Handle.</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// This is the type of handle result parameters in system call</span>
+<span class="c1">// implementation functions (sys_*).  kazoo recognizes return values of</span>
+<span class="c1">// type zx_handle_t and converts them into user_out_handle* instead of into</span>
+<span class="c1">// user_out_ptr&lt;zx_handle_t&gt;.  System call implementation functions use the</span>
+<span class="c1">// make, dup, or transfer method to turn a Dispatcher pointer or another</span>
+<span class="c1">// handle into a handle received by the user.</span>
+<span class="k">class</span> <span class="nc">user_out_handle</span><span class="w"> </span><span class="k">final</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w"> </span><span class="k">public</span><span class="o">:</span><span class="w"></span>
+<span class="w">  </span><span class="n">zx_status_t</span><span class="w"> </span><span class="n">make</span><span class="p">(</span><span class="n">fbl</span><span class="o">::</span><span class="n">RefPtr</span><span class="o">&lt;</span><span class="n">Dispatcher</span><span class="o">&gt;</span><span class="w"> </span><span class="n">dispatcher</span><span class="p">,</span><span class="w"> </span><span class="n">zx_rights_t</span><span class="w"> </span><span class="n">rights</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">h_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Handle</span><span class="o">::</span><span class="n">Make</span><span class="p">(</span><span class="n">ktl</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">dispatcher</span><span class="p">),</span><span class="w"> </span><span class="n">rights</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">h_</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="nl">ZX_OK</span> <span class="p">:</span><span class="w"> </span><span class="n">ZX_ERR_NO_MEMORY</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">  </span><span class="c1">// Note that if this call fails to allocate the Handle, the underlying</span>
+<span class="w">  </span><span class="c1">// Dispatcher&#39;s on_zero_handles() will be called.</span>
+<span class="w">  </span><span class="n">zx_status_t</span><span class="w"> </span><span class="n">make</span><span class="p">(</span><span class="n">KernelHandle</span><span class="o">&lt;</span><span class="n">Dispatcher</span><span class="o">&gt;</span><span class="w"> </span><span class="n">handle</span><span class="p">,</span><span class="w"> </span><span class="n">zx_rights_t</span><span class="w"> </span><span class="n">rights</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">h_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Handle</span><span class="o">::</span><span class="n">Make</span><span class="p">(</span><span class="n">ktl</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">handle</span><span class="p">),</span><span class="w"> </span><span class="n">rights</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">h_</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="nl">ZX_OK</span> <span class="p">:</span><span class="w"> </span><span class="n">ZX_ERR_NO_MEMORY</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">  </span><span class="p">...</span><span class="w"></span>
+<span class="w">  </span><span class="k">private</span><span class="o">:</span><span class="w"></span>
+<span class="w">    </span><span class="n">HandleOwner</span><span class="w"> </span><span class="n">h_</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</code></pre></div>
+<p>A Handle is how a specific process refers to a specific Dispatcher. HandleOwner wraps a Handle in a <code>unique_ptr</code> that has single ownership of the Handle and deletes it whenever it falls out of scope (<code>HandleOwner = ktl::unique_ptr&lt;Handle, HandleDestroyer&gt;</code>). Handles should only be created by <code>Make</code> or <code>Dup(licate)</code>.</p>
+<p>In <code>//zircon/kernel/object/include/object/handle.h</code>, the code is.</p>
+<div class="highlight"><pre><span></span><code><span class="n">HandleOwner</span><span class="w"> </span><span class="nf">Handle::Make</span><span class="p">(</span><span class="n">KernelHandle</span><span class="o">&lt;</span><span class="n">Dispatcher</span><span class="o">&gt;</span><span class="w"> </span><span class="n">kernel_handle</span><span class="p">,</span><span class="w"> </span><span class="n">zx_rights_t</span><span class="w"> </span><span class="n">rights</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">base_value</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="kt">void</span><span class="o">*</span><span class="w"> </span><span class="n">addr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">gHandleTableArena</span><span class="p">.</span><span class="n">Alloc</span><span class="p">(</span><span class="n">kernel_handle</span><span class="p">.</span><span class="n">dispatcher</span><span class="p">(),</span><span class="w"> </span><span class="s">&quot;new&quot;</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">base_value</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">unlikely</span><span class="p">(</span><span class="o">!</span><span class="n">addr</span><span class="p">))</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="k">nullptr</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="n">kcounter_add</span><span class="p">(</span><span class="n">handle_count_made</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="n">kcounter_add</span><span class="p">(</span><span class="n">handle_count_live</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">HandleOwner</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="p">(</span><span class="n">addr</span><span class="p">)</span><span class="w"> </span><span class="n">Handle</span><span class="p">(</span><span class="n">kernel_handle</span><span class="p">.</span><span class="n">release</span><span class="p">(),</span><span class="w"> </span><span class="n">rights</span><span class="p">,</span><span class="w"> </span><span class="n">base_value</span><span class="p">));</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="n">Handle</span><span class="o">::</span><span class="n">Handle</span><span class="p">(</span><span class="n">fbl</span><span class="o">::</span><span class="n">RefPtr</span><span class="o">&lt;</span><span class="n">Dispatcher</span><span class="o">&gt;</span><span class="w"> </span><span class="n">dispatcher</span><span class="p">,</span><span class="w"> </span><span class="n">zx_rights_t</span><span class="w"> </span><span class="n">rights</span><span class="p">,</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">base_value</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="o">:</span><span class="w"> </span><span class="n">process_id_</span><span class="p">(</span><span class="n">ZX_KOID_INVALID</span><span class="p">),</span><span class="w"></span>
+<span class="w">      </span><span class="n">dispatcher_</span><span class="p">(</span><span class="n">ktl</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">dispatcher</span><span class="p">)),</span><span class="w"></span>
+<span class="w">      </span><span class="n">rights_</span><span class="p">(</span><span class="n">rights</span><span class="p">),</span><span class="w"></span>
+<span class="w">      </span><span class="n">base_value_</span><span class="p">(</span><span class="n">base_value</span><span class="p">)</span><span class="w"> </span><span class="p">{}</span><span class="w"></span>
+</code></pre></div>
+<p>When a JobDispatcher is constructed and added to its parent Job, the new job is after the parent's next-youngest child, or us if we have none. The handle can <strong>only get a RefPtr</strong> of JobDispatcher, which makes sense. So we use <code>handle.dispatcher.get</code> to get the pointer of the Job, which is <code>JobDispatcher*</code>.</p>
+<p><code>c++
+JobDispatcher::JobDispatcher(uint32_t /*flags*/, fbl::RefPtr&lt;JobDispatcher&gt; parent,
+                             JobPolicy policy)
+    : SoloDispatcher(ZX_JOB_NO_PROCESSES | ZX_JOB_NO_JOBS | ZX_JOB_NO_CHILDREN),
+      parent_(ktl::move(parent)),
+      max_height_(parent_ ? parent_-&gt;max_height() - 1 : kRootJobMaxHeight),
+      state_(State::READY),
+      return_code_(0),
+      kill_on_oom_(false),
+      policy_(policy),
+      exceptionate_(ZX_EXCEPTION_CHANNEL_TYPE_JOB),
+      debug_exceptionate_(ZX_EXCEPTION_CHANNEL_TYPE_JOB_DEBUGGER) {
+  kcounter_add(dispatcher_job_create_count, 1);
+}</code></p>
+</li>
+<li>
+<p>Process.</p>
+</li>
+</ul>
+<p>First, the definition of ProcessDispatcher is in <code>//zircon/kernel/object/include/object/process_dispatcher.h</code>.</p>
+<ul>
+<li>
+<p>Create a process.</p>
+<div class="highlight"><pre><span></span><code><span class="n">zx_status_t</span><span class="w"> </span><span class="nf">sys_process_create</span><span class="p">(</span><span class="n">zx_handle_t</span><span class="w"> </span><span class="n">job_handle</span><span class="p">,</span><span class="w"> </span><span class="n">user_in_ptr</span><span class="o">&lt;</span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">&gt;</span><span class="w"> </span><span class="n">_name</span><span class="p">,</span><span class="w"></span>
+<span class="w">                               </span><span class="kt">size_t</span><span class="w"> </span><span class="n">name_len</span><span class="p">,</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">options</span><span class="p">,</span><span class="w"> </span><span class="n">user_out_handle</span><span class="o">*</span><span class="w"> </span><span class="n">proc_handle</span><span class="p">,</span><span class="w"></span>
+<span class="w">                               </span><span class="n">user_out_handle</span><span class="o">*</span><span class="w"> </span><span class="n">vmar_handle</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="c1">// some basic things</span>
+
+<span class="w">  </span><span class="c1">// copy out the name</span>
+<span class="w">  </span><span class="kt">char</span><span class="w"> </span><span class="n">buf</span><span class="p">[</span><span class="n">ZX_MAX_NAME_LEN</span><span class="p">];</span><span class="w"></span>
+<span class="w">  </span><span class="n">ktl</span><span class="o">::</span><span class="n">string_view</span><span class="w"> </span><span class="n">sp</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">copy_user_string</span><span class="p">(</span><span class="n">_name</span><span class="p">,</span><span class="w"> </span><span class="n">name_len</span><span class="p">,</span><span class="w"> </span><span class="n">buf</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">buf</span><span class="p">),</span><span class="w"> </span><span class="o">&amp;</span><span class="n">sp</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">  </span><span class="n">fbl</span><span class="o">::</span><span class="n">RefPtr</span><span class="o">&lt;</span><span class="n">JobDispatcher</span><span class="o">&gt;</span><span class="w"> </span><span class="n">job</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="k">auto</span><span class="w"> </span><span class="n">status</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
+<span class="w">      </span><span class="n">up</span><span class="o">-&gt;</span><span class="n">handle_table</span><span class="p">().</span><span class="n">GetDispatcherWithRights</span><span class="p">(</span><span class="n">job_handle</span><span class="p">,</span><span class="w"> </span><span class="n">ZX_RIGHT_MANAGE_PROCESS</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">job</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">  </span><span class="c1">// create a new process dispatcher</span>
+<span class="w">  </span><span class="n">KernelHandle</span><span class="o">&lt;</span><span class="n">ProcessDispatcher</span><span class="o">&gt;</span><span class="w"> </span><span class="n">new_process_handle</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="n">KernelHandle</span><span class="o">&lt;</span><span class="n">VmAddressRegionDispatcher</span><span class="o">&gt;</span><span class="w"> </span><span class="n">new_vmar_handle</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="n">zx_rights_t</span><span class="w"> </span><span class="n">proc_rights</span><span class="p">,</span><span class="w"> </span><span class="n">vmar_rights</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ProcessDispatcher</span><span class="o">::</span><span class="n">Create</span><span class="p">(</span><span class="n">ktl</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">job</span><span class="p">),</span><span class="w"> </span><span class="n">sp</span><span class="p">,</span><span class="w"> </span><span class="n">options</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">new_process_handle</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">proc_rights</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                     </span><span class="o">&amp;</span><span class="n">new_vmar_handle</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">vmar_rights</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">  </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">proc_handle</span><span class="o">-&gt;</span><span class="n">make</span><span class="p">(</span><span class="n">ktl</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">new_process_handle</span><span class="p">),</span><span class="w"> </span><span class="n">proc_rights</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">result</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">ZX_OK</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">vmar_handle</span><span class="o">-&gt;</span><span class="n">make</span><span class="p">(</span><span class="n">ktl</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">new_vmar_handle</span><span class="p">),</span><span class="w"> </span><span class="n">vmar_rights</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">result</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</code></pre></div>
+<p>In this process creation, <code>ProcessDispatcher::Create</code> is the core function.</p>
+<p>In the creation of ProcessDispatcher.</p>
+<div class="highlight"><pre><span></span><code><span class="n">zx_status_t</span><span class="w"> </span><span class="nf">ProcessDispatcher::Create</span><span class="p">(</span><span class="n">fbl</span><span class="o">::</span><span class="n">RefPtr</span><span class="o">&lt;</span><span class="n">JobDispatcher</span><span class="o">&gt;</span><span class="w"> </span><span class="n">job</span><span class="p">,</span><span class="w"> </span><span class="n">ktl</span><span class="o">::</span><span class="n">string_view</span><span class="w"> </span><span class="n">name</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                      </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">flags</span><span class="p">,</span><span class="w"> </span><span class="n">KernelHandle</span><span class="o">&lt;</span><span class="n">ProcessDispatcher</span><span class="o">&gt;*</span><span class="w"> </span><span class="n">handle</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                      </span><span class="n">zx_rights_t</span><span class="o">*</span><span class="w"> </span><span class="n">rights</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                      </span><span class="n">KernelHandle</span><span class="o">&lt;</span><span class="n">VmAddressRegionDispatcher</span><span class="o">&gt;*</span><span class="w"> </span><span class="n">root_vmar_handle</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                      </span><span class="n">zx_rights_t</span><span class="o">*</span><span class="w"> </span><span class="n">root_vmar_rights</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="n">fbl</span><span class="o">::</span><span class="n">AllocChecker</span><span class="w"> </span><span class="n">ac</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="n">KernelHandle</span><span class="w"> </span><span class="n">new_handle</span><span class="p">(</span><span class="n">fbl</span><span class="o">::</span><span class="n">AdoptRef</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="p">(</span><span class="o">&amp;</span><span class="n">ac</span><span class="p">)</span><span class="w"> </span><span class="n">ProcessDispatcher</span><span class="p">(</span><span class="n">job</span><span class="p">,</span><span class="w"> </span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">flags</span><span class="p">)));</span><span class="w"></span>
+
+<span class="w">  </span><span class="n">zx_status_t</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">new_handle</span><span class="p">.</span><span class="n">dispatcher</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">Initialize</span><span class="p">();</span><span class="w"></span>
+
+<span class="w">  </span><span class="c1">// Create a dispatcher for the root VMAR.</span>
+<span class="w">  </span><span class="n">KernelHandle</span><span class="o">&lt;</span><span class="n">VmAddressRegionDispatcher</span><span class="o">&gt;</span><span class="w"> </span><span class="n">new_vmar_handle</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">VmAddressRegionDispatcher</span><span class="o">::</span><span class="n">Create</span><span class="p">(</span><span class="n">new_handle</span><span class="p">.</span><span class="n">dispatcher</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">aspace</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">RootVmar</span><span class="p">(),</span><span class="w"></span>
+<span class="w">                                             </span><span class="n">ARCH_MMU_FLAG_PERM_USER</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">new_vmar_handle</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                             </span><span class="n">root_vmar_rights</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">  </span><span class="c1">// Only now that the process has been fully created and initialized can we register it with its</span>
+<span class="w">  </span><span class="c1">// parent job. We don&#39;t want anyone to see it in a partially initalized state.</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">job</span><span class="o">-&gt;</span><span class="n">AddChildProcess</span><span class="p">(</span><span class="n">new_handle</span><span class="p">.</span><span class="n">dispatcher</span><span class="p">()))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">ZX_ERR_BAD_STATE</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">  </span><span class="o">*</span><span class="n">rights</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">default_rights</span><span class="p">();</span><span class="w"></span>
+<span class="w">  </span><span class="o">*</span><span class="n">handle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ktl</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">new_handle</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="o">*</span><span class="n">root_vmar_handle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ktl</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">new_vmar_handle</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">ZX_OK</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</code></pre></div>
+<p>Here, we are interested in 2 functionalities. What initialization should the process do (<code>dispatcher()-&gt;Initialize()</code>)? How does the <code>VmAddressRegionDispatcher::Create</code> work and how it relates to the new process?</p>
+<p>Here comes the initialization step. The calling tree is <code>ProcessDiapatcher::Initialize</code>-&gt;<code>VmAspace::Create</code>-&gt;<code>VmAspace::Init</code>. Specifically, the constructor of VmAspace is a initialization list as below.</p>
+<div class="highlight"><pre><span></span><code><span class="n">VmAspace</span><span class="o">::</span><span class="n">VmAspace</span><span class="p">(</span><span class="n">vaddr_t</span><span class="w"> </span><span class="n">base</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">size</span><span class="p">,</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">flags</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">name</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="o">:</span><span class="w"> </span><span class="n">base_</span><span class="p">(</span><span class="n">base</span><span class="p">),</span><span class="w"></span>
+<span class="w">      </span><span class="n">size_</span><span class="p">(</span><span class="n">size</span><span class="p">),</span><span class="w"></span>
+<span class="w">      </span><span class="n">flags_</span><span class="p">(</span><span class="n">flags</span><span class="p">),</span><span class="w"></span>
+<span class="w">      </span><span class="n">root_vmar_</span><span class="p">(</span><span class="k">nullptr</span><span class="p">),</span><span class="w"></span>
+<span class="w">      </span><span class="n">aslr_prng_</span><span class="p">(</span><span class="k">nullptr</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">),</span><span class="w"></span>
+<span class="w">      </span><span class="n">arch_aspace_</span><span class="p">(</span><span class="n">base</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="p">,</span><span class="w"> </span><span class="n">arch_aspace_flags_from_flags</span><span class="p">(</span><span class="n">flags</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="n">DEBUG_ASSERT</span><span class="p">(</span><span class="n">size</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="n">DEBUG_ASSERT</span><span class="p">(</span><span class="n">base</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="n">base</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">  </span><span class="n">Rename</span><span class="p">(</span><span class="n">name</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="c1">// Fun 1</span>
+<span class="n">zx_status_t</span><span class="w"> </span><span class="nf">ProcessDispatcher::Initialize</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="n">LTRACE_ENTRY_OBJ</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">  </span><span class="n">Guard</span><span class="o">&lt;</span><span class="n">Mutex</span><span class="o">&gt;</span><span class="w"> </span><span class="n">guard</span><span class="p">{</span><span class="n">get_lock</span><span class="p">()};</span><span class="w"></span>
+
+<span class="w">  </span><span class="c1">// create an address space for this process, named after the process&#39;s koid.</span>
+<span class="w">  </span><span class="kt">char</span><span class="w"> </span><span class="n">aspace_name</span><span class="p">[</span><span class="n">ZX_MAX_NAME_LEN</span><span class="p">];</span><span class="w"></span>
+<span class="w">  </span><span class="n">snprintf</span><span class="p">(</span><span class="n">aspace_name</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">aspace_name</span><span class="p">),</span><span class="w"> </span><span class="s">&quot;proc:%&quot;</span><span class="w"> </span><span class="n">PRIu64</span><span class="p">,</span><span class="w"> </span><span class="n">get_koid</span><span class="p">());</span><span class="w"></span>
+<span class="w">  </span><span class="n">aspace_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">VmAspace</span><span class="o">::</span><span class="n">Create</span><span class="p">(</span><span class="n">VmAspace</span><span class="o">::</span><span class="n">TYPE_USER</span><span class="p">,</span><span class="w"> </span><span class="n">aspace_name</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">aspace_</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">ZX_ERR_NO_MEMORY</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">ZX_OK</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="c1">// Fun 2</span>
+<span class="n">fbl</span><span class="o">::</span><span class="n">RefPtr</span><span class="o">&lt;</span><span class="n">VmAspace</span><span class="o">&gt;</span><span class="w"> </span><span class="n">VmAspace</span><span class="o">::</span><span class="n">Create</span><span class="p">(</span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">flags</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">name</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="n">LTRACEF</span><span class="p">(</span><span class="s">&quot;flags 0x%x, name &#39;%s&#39;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">flags</span><span class="p">,</span><span class="w"> </span><span class="n">name</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">  </span><span class="n">vaddr_t</span><span class="w"> </span><span class="n">base</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="kt">size_t</span><span class="w"> </span><span class="n">size</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="k">switch</span><span class="w"> </span><span class="p">(</span><span class="n">flags</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">TYPE_MASK</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="nl">TYPE_USER</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="n">base</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">USER_ASPACE_BASE</span><span class="p">;</span><span class="w"></span>
+<span class="w">      </span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">USER_ASPACE_SIZE</span><span class="p">;</span><span class="w"></span>
+<span class="w">      </span><span class="k">break</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="nl">TYPE_KERNEL</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="n">base</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">KERNEL_ASPACE_BASE</span><span class="p">;</span><span class="w"></span>
+<span class="w">      </span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">KERNEL_ASPACE_SIZE</span><span class="p">;</span><span class="w"></span>
+<span class="w">      </span><span class="k">break</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="nl">TYPE_LOW_KERNEL</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="n">base</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="w">      </span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">USER_ASPACE_BASE</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">USER_ASPACE_SIZE</span><span class="p">;</span><span class="w"></span>
+<span class="w">      </span><span class="k">break</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="nl">TYPE_GUEST_PHYS</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="n">base</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">GUEST_PHYSICAL_ASPACE_BASE</span><span class="p">;</span><span class="w"></span>
+<span class="w">      </span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">GUEST_PHYSICAL_ASPACE_SIZE</span><span class="p">;</span><span class="w"></span>
+<span class="w">      </span><span class="k">break</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="k">default</span><span class="o">:</span><span class="w"></span>
+<span class="w">      </span><span class="n">panic</span><span class="p">(</span><span class="s">&quot;Invalid aspace type&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">  </span><span class="n">fbl</span><span class="o">::</span><span class="n">AllocChecker</span><span class="w"> </span><span class="n">ac</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="k">auto</span><span class="w"> </span><span class="n">aspace</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fbl</span><span class="o">::</span><span class="n">AdoptRef</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="p">(</span><span class="o">&amp;</span><span class="n">ac</span><span class="p">)</span><span class="w"> </span><span class="n">VmAspace</span><span class="p">(</span><span class="n">base</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="p">,</span><span class="w"> </span><span class="n">flags</span><span class="p">,</span><span class="w"> </span><span class="n">name</span><span class="p">));</span><span class="w"></span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">ac</span><span class="p">.</span><span class="n">check</span><span class="p">())</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="k">nullptr</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">  </span><span class="c1">// initialize the arch specific component to our address space</span>
+<span class="w">  </span><span class="n">zx_status_t</span><span class="w"> </span><span class="n">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">aspace</span><span class="o">-&gt;</span><span class="n">Init</span><span class="p">();</span><span class="w"></span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">status</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">ZX_OK</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">aspace</span><span class="o">-&gt;</span><span class="n">Destroy</span><span class="p">();</span><span class="w"></span>
+<span class="w">    </span><span class="n">DEBUG_ASSERT</span><span class="p">(</span><span class="n">status</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">ZX_OK</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="k">nullptr</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">  </span><span class="c1">// add it to the global list</span>
+<span class="w">  </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">Guard</span><span class="o">&lt;</span><span class="n">Mutex</span><span class="o">&gt;</span><span class="w"> </span><span class="n">guard</span><span class="p">{</span><span class="o">&amp;</span><span class="n">aspace_list_lock</span><span class="p">};</span><span class="w"></span>
+<span class="w">    </span><span class="n">aspaces</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">aspace</span><span class="p">.</span><span class="n">get</span><span class="p">());</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">  </span><span class="c1">// return a ref pointer to the aspace</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">aspace</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</code></pre></div>
+<p>The third function in the calling tree is worth mentioning. For the architectural specific part, <code>arch_aspace_.Init</code>, if we taken X86 as an example, we can find the function <code>X86ArchVmAspace::Init</code> in <code>//zircon/kernel/arch/x86/mmu.cc</code>. Zircon uses <strong>ASLR</strong> to mitigate spatial memory corruption. For a process, the root VMAR covers the entire address space.</p>
+<div class="highlight"><pre><span></span><code><span class="n">zx_status_t</span><span class="w"> </span><span class="nf">VmAspace::Init</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="n">canary_</span><span class="p">.</span><span class="n">Assert</span><span class="p">();</span><span class="w"></span>
+
+<span class="w">  </span><span class="c1">// initialize the architecturally specific part</span>
+<span class="w">  </span><span class="n">zx_status_t</span><span class="w"> </span><span class="n">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">arch_aspace_</span><span class="p">.</span><span class="n">Init</span><span class="p">();</span><span class="w"></span>
+
+<span class="w">  </span><span class="n">InitializeAslr</span><span class="p">();</span><span class="w"></span>
+
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">likely</span><span class="p">(</span><span class="o">!</span><span class="n">root_vmar_</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">VmAddressRegion</span><span class="o">::</span><span class="n">CreateRoot</span><span class="p">(</span><span class="o">*</span><span class="k">this</span><span class="p">,</span><span class="w"> </span><span class="n">VMAR_FLAG_CAN_MAP_SPECIFIC</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">root_vmar_</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">ZX_OK</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="cm">/*</span>
+<span class="cm"> * Fill in the high level x86 arch aspace structure and allocating a top level page table.</span>
+<span class="cm"> */</span><span class="w"></span>
+<span class="n">zx_status_t</span><span class="w"> </span><span class="nf">X86ArchVmAspace::Init</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="k">static_assert</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">cpu_mask_t</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">active_cpus_</span><span class="p">),</span><span class="w"> </span><span class="s">&quot;err&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="n">canary_</span><span class="p">.</span><span class="n">Assert</span><span class="p">();</span><span class="w"></span>
+
+<span class="w">  </span><span class="n">LTRACEF</span><span class="p">(</span><span class="s">&quot;aspace %p, base %#&quot;</span><span class="w"> </span><span class="n">PRIxPTR</span><span class="w"> </span><span class="s">&quot;, size 0x%zx, mmu_flags 0x%x</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="k">this</span><span class="p">,</span><span class="w"> </span><span class="n">base_</span><span class="p">,</span><span class="w"> </span><span class="n">size_</span><span class="p">,</span><span class="w"></span>
+<span class="w">          </span><span class="n">flags_</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">flags_</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">ARCH_ASPACE_FLAG_KERNEL</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">X86PageTableMmu</span><span class="o">*</span><span class="w"> </span><span class="n">mmu</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="p">(</span><span class="o">&amp;</span><span class="n">page_table_storage_</span><span class="p">.</span><span class="n">mmu</span><span class="p">)</span><span class="w"> </span><span class="n">X86PageTableMmu</span><span class="p">();</span><span class="w"></span>
+<span class="w">    </span><span class="n">pt_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mmu</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">zx_status_t</span><span class="w"> </span><span class="n">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mmu</span><span class="o">-&gt;</span><span class="n">InitKernel</span><span class="p">(</span><span class="k">this</span><span class="p">,</span><span class="w"> </span><span class="n">test_page_alloc_func_</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">status</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">ZX_OK</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="n">status</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="n">LTRACEF</span><span class="p">(</span><span class="s">&quot;kernel aspace: pt phys %#&quot;</span><span class="w"> </span><span class="n">PRIxPTR</span><span class="w"> </span><span class="s">&quot;, virt %p</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">pt_</span><span class="o">-&gt;</span><span class="n">phys</span><span class="p">(),</span><span class="w"> </span><span class="n">pt_</span><span class="o">-&gt;</span><span class="n">virt</span><span class="p">());</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">flags_</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">ARCH_ASPACE_FLAG_GUEST</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">X86PageTableEpt</span><span class="o">*</span><span class="w"> </span><span class="n">ept</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="p">(</span><span class="o">&amp;</span><span class="n">page_table_storage_</span><span class="p">.</span><span class="n">ept</span><span class="p">)</span><span class="w"> </span><span class="n">X86PageTableEpt</span><span class="p">();</span><span class="w"></span>
+<span class="w">    </span><span class="n">pt_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ept</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">zx_status_t</span><span class="w"> </span><span class="n">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ept</span><span class="o">-&gt;</span><span class="n">Init</span><span class="p">(</span><span class="k">this</span><span class="p">,</span><span class="w"> </span><span class="n">test_page_alloc_func_</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">status</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">ZX_OK</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="n">status</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="n">LTRACEF</span><span class="p">(</span><span class="s">&quot;guest paspace: pt phys %#&quot;</span><span class="w"> </span><span class="n">PRIxPTR</span><span class="w"> </span><span class="s">&quot;, virt %p</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">pt_</span><span class="o">-&gt;</span><span class="n">phys</span><span class="p">(),</span><span class="w"> </span><span class="n">pt_</span><span class="o">-&gt;</span><span class="n">virt</span><span class="p">());</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">X86PageTableMmu</span><span class="o">*</span><span class="w"> </span><span class="n">mmu</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="p">(</span><span class="o">&amp;</span><span class="n">page_table_storage_</span><span class="p">.</span><span class="n">mmu</span><span class="p">)</span><span class="w"> </span><span class="n">X86PageTableMmu</span><span class="p">();</span><span class="w"></span>
+<span class="w">    </span><span class="n">pt_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mmu</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">zx_status_t</span><span class="w"> </span><span class="n">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mmu</span><span class="o">-&gt;</span><span class="n">Init</span><span class="p">(</span><span class="k">this</span><span class="p">,</span><span class="w"> </span><span class="n">test_page_alloc_func_</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">status</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">ZX_OK</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="n">status</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mmu</span><span class="o">-&gt;</span><span class="n">AliasKernelMappings</span><span class="p">();</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">status</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">ZX_OK</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="n">status</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">LTRACEF</span><span class="p">(</span><span class="s">&quot;user aspace: pt phys %#&quot;</span><span class="w"> </span><span class="n">PRIxPTR</span><span class="w"> </span><span class="s">&quot;, virt %p</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">pt_</span><span class="o">-&gt;</span><span class="n">phys</span><span class="p">(),</span><span class="w"> </span><span class="n">pt_</span><span class="o">-&gt;</span><span class="n">virt</span><span class="p">());</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="w">  </span><span class="n">ktl</span><span class="o">::</span><span class="n">atomic_init</span><span class="p">(</span><span class="o">&amp;</span><span class="n">active_cpus_</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">ZX_OK</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</code></pre></div>
+</li>
+<li>
+<p>Start a process.</p>
+<p>The first argument (<code>arg1</code>) is a handle, which will be transferred from the process of the caller to the process being started, and an appropriate handle value will be placed in <code>arg1</code> for the newly started thread. <code>zx_process_start()</code> is the only way to transfer a handle into a process that doesn't involve the process making some system call using a handle it already has. A process with no handles can make the few system calls that don't require a handle.</p>
+<p>So, the main question is, can we give an example to specify what <code>arg1</code> and <code>arg2</code> are. According to the tests in Fuchsia, most <code>arg1s</code> are Events defined in Zircon. <font color='red'>Here, currently I have no idea why we give the new process an Event handle and how to use this to, let's say, get the handle of its parent job and create another job or process.</font></p>
+<div class="highlight"><pre><span></span><code><span class="n">zx_status_t</span><span class="w"> </span><span class="nf">sys_process_start</span><span class="p">(</span><span class="n">zx_handle_t</span><span class="w"> </span><span class="n">process_handle</span><span class="p">,</span><span class="w"> </span><span class="n">zx_handle_t</span><span class="w"> </span><span class="n">thread_handle</span><span class="p">,</span><span class="w"> </span><span class="n">zx_vaddr_t</span><span class="w"> </span><span class="n">pc</span><span class="p">,</span><span class="w"></span>
+<span class="w">                              </span><span class="n">zx_vaddr_t</span><span class="w"> </span><span class="n">sp</span><span class="p">,</span><span class="w"> </span><span class="n">zx_handle_t</span><span class="w"> </span><span class="n">arg_handle_value</span><span class="p">,</span><span class="w"> </span><span class="kt">uintptr_t</span><span class="w"> </span><span class="n">arg2</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+
+<span class="w">  </span><span class="k">auto</span><span class="w"> </span><span class="n">up</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ProcessDispatcher</span><span class="o">::</span><span class="n">GetCurrent</span><span class="p">();</span><span class="w"></span>
+
+<span class="w">  </span><span class="c1">// get process dispatcher</span>
+<span class="w">  </span><span class="n">fbl</span><span class="o">::</span><span class="n">RefPtr</span><span class="o">&lt;</span><span class="n">ProcessDispatcher</span><span class="o">&gt;</span><span class="w"> </span><span class="n">process</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="n">zx_status_t</span><span class="w"> </span><span class="n">status</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
+<span class="w">      </span><span class="n">up</span><span class="o">-&gt;</span><span class="n">handle_table</span><span class="p">().</span><span class="n">GetDispatcherWithRights</span><span class="p">(</span><span class="n">process_handle</span><span class="p">,</span><span class="w"> </span><span class="n">ZX_RIGHT_WRITE</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">process</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">  </span><span class="c1">// get thread_dispatcher</span>
+<span class="w">  </span><span class="n">fbl</span><span class="o">::</span><span class="n">RefPtr</span><span class="o">&lt;</span><span class="n">ThreadDispatcher</span><span class="o">&gt;</span><span class="w"> </span><span class="kr">thread</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="n">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">up</span><span class="o">-&gt;</span><span class="n">handle_table</span><span class="p">().</span><span class="n">GetDispatcherWithRights</span><span class="p">(</span><span class="n">thread_handle</span><span class="p">,</span><span class="w"> </span><span class="n">ZX_RIGHT_WRITE</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="kr">thread</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">  </span><span class="n">HandleOwner</span><span class="w"> </span><span class="n">arg_handle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">up</span><span class="o">-&gt;</span><span class="n">handle_table</span><span class="p">().</span><span class="n">RemoveHandle</span><span class="p">(</span><span class="n">arg_handle_value</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">  </span><span class="c1">// test that the thread belongs to the starting process</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="kr">thread</span><span class="o">-&gt;</span><span class="n">process</span><span class="p">()</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">process</span><span class="p">.</span><span class="n">get</span><span class="p">())</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">ZX_ERR_ACCESS_DENIED</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">  </span><span class="n">zx_handle_t</span><span class="w"> </span><span class="n">arg_nhv</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ZX_HANDLE_INVALID</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">arg_handle</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">arg_nhv</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">process</span><span class="o">-&gt;</span><span class="n">handle_table</span><span class="p">().</span><span class="n">MapHandleToValue</span><span class="p">(</span><span class="n">arg_handle</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">process</span><span class="o">-&gt;</span><span class="n">handle_table</span><span class="p">().</span><span class="n">AddHandle</span><span class="p">(</span><span class="n">ktl</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">arg_handle</span><span class="p">));</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">  </span><span class="n">status</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
+<span class="w">      </span><span class="kr">thread</span><span class="o">-&gt;</span><span class="n">Start</span><span class="p">(</span><span class="n">ThreadDispatcher</span><span class="o">::</span><span class="n">EntryState</span><span class="p">{</span><span class="n">pc</span><span class="p">,</span><span class="w"> </span><span class="n">sp</span><span class="p">,</span><span class="w"> </span><span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">uintptr_t</span><span class="o">&gt;</span><span class="p">(</span><span class="n">arg_nhv</span><span class="p">),</span><span class="w"> </span><span class="n">arg2</span><span class="p">},</span><span class="w"></span>
+<span class="w">                    </span><span class="cm">/* initial_thread */</span><span class="w"> </span><span class="nb">true</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">ZX_OK</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</code></pre></div>
+</li>
+<li>
+<p>Thread.</p>
+</li>
+</ul>
+<p>To begin with, Zircon Threads are detached (not need to wait for join to release resource), by POSIX API may needs join.</p>
+<ul>
+<li>
+<p>Create and start.</p>
+<p>Thread creation is similar. And the <code>options</code> must be 0 as well. The difference lies in the Processes and Jobs are listed in Jobs as a fat-wide tree structure. So, we only need to dive into <code>ThreadDispatcher::Create</code> and <code>handle.dispatcher()-&gt;Initialize()</code>.</p>
+<div class="highlight"><pre><span></span><code><span class="n">zx_status_t</span><span class="w"> </span><span class="nf">sys_thread_create</span><span class="p">(</span><span class="n">zx_handle_t</span><span class="w"> </span><span class="n">process_handle</span><span class="p">,</span><span class="w"> </span><span class="n">user_in_ptr</span><span class="o">&lt;</span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">&gt;</span><span class="w"> </span><span class="n">_name</span><span class="p">,</span><span class="w"></span>
+<span class="w">                              </span><span class="kt">size_t</span><span class="w"> </span><span class="n">name_len</span><span class="p">,</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">options</span><span class="p">,</span><span class="w"> </span><span class="n">user_out_handle</span><span class="o">*</span><span class="w"> </span><span class="n">out</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+
+<span class="w">  </span><span class="c1">// copy out the name</span>
+<span class="w">  </span><span class="kt">char</span><span class="w"> </span><span class="n">buf</span><span class="p">[</span><span class="n">ZX_MAX_NAME_LEN</span><span class="p">];</span><span class="w"></span>
+<span class="w">  </span><span class="n">ktl</span><span class="o">::</span><span class="n">string_view</span><span class="w"> </span><span class="n">sp</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="n">zx_status_t</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">copy_user_string</span><span class="p">(</span><span class="n">_name</span><span class="p">,</span><span class="w"> </span><span class="n">name_len</span><span class="p">,</span><span class="w"> </span><span class="n">buf</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">buf</span><span class="p">),</span><span class="w"> </span><span class="o">&amp;</span><span class="n">sp</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">  </span><span class="c1">// convert process handle to process dispatcher</span>
+<span class="w">  </span><span class="k">auto</span><span class="w"> </span><span class="n">up</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ProcessDispatcher</span><span class="o">::</span><span class="n">GetCurrent</span><span class="p">();</span><span class="w"></span>
+
+<span class="w">  </span><span class="n">fbl</span><span class="o">::</span><span class="n">RefPtr</span><span class="o">&lt;</span><span class="n">ProcessDispatcher</span><span class="o">&gt;</span><span class="w"> </span><span class="n">process</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
+<span class="w">      </span><span class="n">up</span><span class="o">-&gt;</span><span class="n">handle_table</span><span class="p">().</span><span class="n">GetDispatcherWithRights</span><span class="p">(</span><span class="n">process_handle</span><span class="p">,</span><span class="w"> </span><span class="n">ZX_RIGHT_MANAGE_THREAD</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">process</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">  </span><span class="c1">// create the thread dispatcher</span>
+<span class="w">  </span><span class="n">KernelHandle</span><span class="o">&lt;</span><span class="n">ThreadDispatcher</span><span class="o">&gt;</span><span class="w"> </span><span class="n">handle</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="n">zx_rights_t</span><span class="w"> </span><span class="n">thread_rights</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ThreadDispatcher</span><span class="o">::</span><span class="n">Create</span><span class="p">(</span><span class="n">ktl</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">process</span><span class="p">),</span><span class="w"> </span><span class="n">options</span><span class="p">,</span><span class="w"> </span><span class="n">sp</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">handle</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">thread_rights</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">result</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">ZX_OK</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">result</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">  </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">handle</span><span class="p">.</span><span class="n">dispatcher</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">Initialize</span><span class="p">();</span><span class="w"></span>
+
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">out</span><span class="o">-&gt;</span><span class="n">make</span><span class="p">(</span><span class="n">ktl</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">handle</span><span class="p">),</span><span class="w"> </span><span class="n">thread_rights</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</code></pre></div>
+<p>In Thread creation, first we need to know how Process and Thread are related. Then, we must know the definition of <code>user_thread</code> and <code>core_thread</code>. Thread knows its parent's Process and the Process can access all threads from the first one by one. <code>user_thread</code> is the dispatcher and <code>core_thread</code> is for kernel and scheduler. In the creation, the pointer <code>t</code> is nullptr. Further reading about <code>core_thread</code> will be in scheduling.</p>
+<div class="highlight"><pre><span></span><code><span class="n">zx_status_t</span><span class="w"> </span><span class="nf">ThreadDispatcher::Create</span><span class="p">(</span><span class="n">fbl</span><span class="o">::</span><span class="n">RefPtr</span><span class="o">&lt;</span><span class="n">ProcessDispatcher</span><span class="o">&gt;</span><span class="w"> </span><span class="n">process</span><span class="p">,</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">flags</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                     </span><span class="n">ktl</span><span class="o">::</span><span class="n">string_view</span><span class="w"> </span><span class="n">name</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                     </span><span class="n">KernelHandle</span><span class="o">&lt;</span><span class="n">ThreadDispatcher</span><span class="o">&gt;*</span><span class="w"> </span><span class="n">out_handle</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                     </span><span class="n">zx_rights_t</span><span class="o">*</span><span class="w"> </span><span class="n">out_rights</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="c1">// Create the user-mode thread and attach it to the process and lower level thread.</span>
+<span class="w">  </span><span class="n">fbl</span><span class="o">::</span><span class="n">AllocChecker</span><span class="w"> </span><span class="n">ac</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="k">auto</span><span class="w"> </span><span class="n">user_thread</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fbl</span><span class="o">::</span><span class="n">AdoptRef</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="p">(</span><span class="o">&amp;</span><span class="n">ac</span><span class="p">)</span><span class="w"> </span><span class="n">ThreadDispatcher</span><span class="p">(</span><span class="n">process</span><span class="p">,</span><span class="w"> </span><span class="n">flags</span><span class="p">));</span><span class="w"></span>
+
+<span class="w">  </span><span class="c1">// Create the lower level thread and attach it to the scheduler.</span>
+<span class="w">  </span><span class="n">Thread</span><span class="o">*</span><span class="w"> </span><span class="n">core_thread</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
+<span class="w">      </span><span class="n">Thread</span><span class="o">::</span><span class="n">Create</span><span class="p">(</span><span class="n">name</span><span class="p">.</span><span class="n">data</span><span class="p">(),</span><span class="w"> </span><span class="n">StartRoutine</span><span class="p">,</span><span class="w"> </span><span class="n">user_thread</span><span class="p">.</span><span class="n">get</span><span class="p">(),</span><span class="w"> </span><span class="n">DEFAULT_PRIORITY</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">  </span><span class="c1">// We haven&#39;t yet compeleted initialization of |user_thread|, and</span>
+<span class="w">  </span><span class="c1">// references to it haven&#39;t possibly escaped this thread. We can</span>
+<span class="w">  </span><span class="c1">// safely set |core_thread_| outside the lock.</span>
+<span class="w">  </span><span class="p">[</span><span class="o">&amp;</span><span class="n">user_thread</span><span class="p">,</span><span class="w"></span>
+<span class="w">   </span><span class="o">&amp;</span><span class="n">core_thread</span><span class="p">]()</span><span class="w"> </span><span class="n">TA_NO_THREAD_SAFETY_ANALYSIS</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">user_thread</span><span class="o">-&gt;</span><span class="n">core_thread_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">core_thread</span><span class="p">;</span><span class="w"> </span><span class="p">}();</span><span class="w"></span>
+
+<span class="w">  </span><span class="c1">// The syscall layer will call Initialize(), which used to be called here.</span>
+
+<span class="w">  </span><span class="o">*</span><span class="n">out_rights</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">default_rights</span><span class="p">();</span><span class="w"></span>
+<span class="w">  </span><span class="o">*</span><span class="n">out_handle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">KernelHandle</span><span class="p">(</span><span class="n">ktl</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">user_thread</span><span class="p">));</span><span class="w"></span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">ZX_OK</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">Thread</span><span class="o">*</span><span class="w"> </span><span class="nf">Thread::CreateEtc</span><span class="p">(</span><span class="n">Thread</span><span class="o">*</span><span class="w"> </span><span class="n">t</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">thread_start_routine</span><span class="w"> </span><span class="n">entry</span><span class="p">,</span><span class="w"> </span><span class="kt">void</span><span class="o">*</span><span class="w"> </span><span class="n">arg</span><span class="p">,</span><span class="w"></span>
+<span class="w">                          </span><span class="kt">int</span><span class="w"> </span><span class="n">priority</span><span class="p">,</span><span class="w"> </span><span class="n">thread_trampoline_routine</span><span class="w"> </span><span class="n">alt_trampoline</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">flags</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">t</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">t</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">static_cast</span><span class="o">&lt;</span><span class="n">Thread</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">memalign</span><span class="p">(</span><span class="k">alignof</span><span class="p">(</span><span class="n">Thread</span><span class="p">),</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">Thread</span><span class="p">)));</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">t</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="k">nullptr</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="n">flags</span><span class="w"> </span><span class="o">|=</span><span class="w"> </span><span class="n">THREAD_FLAG_FREE_STRUCT</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">  </span><span class="n">init_thread_struct</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="w"> </span><span class="n">name</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">  </span><span class="n">t</span><span class="o">-&gt;</span><span class="n">task_state_</span><span class="p">.</span><span class="n">Init</span><span class="p">(</span><span class="n">entry</span><span class="p">,</span><span class="w"> </span><span class="n">arg</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="n">Scheduler</span><span class="o">::</span><span class="n">InitializeThread</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="w"> </span><span class="n">priority</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">  </span><span class="n">zx_status_t</span><span class="w"> </span><span class="n">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">t</span><span class="o">-&gt;</span><span class="n">stack_</span><span class="p">.</span><span class="n">Init</span><span class="p">();</span><span class="w"></span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">status</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">ZX_OK</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">flags</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">THREAD_FLAG_FREE_STRUCT</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="n">free</span><span class="p">(</span><span class="n">t</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="k">nullptr</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">  </span><span class="c1">// save whether or not we need to free the thread struct and/or stack</span>
+<span class="w">  </span><span class="n">t</span><span class="o">-&gt;</span><span class="n">flags_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">flags</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">likely</span><span class="p">(</span><span class="n">alt_trampoline</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="k">nullptr</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">alt_trampoline</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">Thread</span><span class="o">::</span><span class="n">Trampoline</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">  </span><span class="c1">// set up the initial stack frame</span>
+<span class="w">  </span><span class="n">arch_thread_initialize</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="n">vaddr_t</span><span class="p">)</span><span class="n">alt_trampoline</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">  </span><span class="c1">// add it to the global thread list</span>
+<span class="w">  </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">Guard</span><span class="o">&lt;</span><span class="n">MonitoredSpinLock</span><span class="p">,</span><span class="w"> </span><span class="n">IrqSave</span><span class="o">&gt;</span><span class="w"> </span><span class="n">guard</span><span class="p">{</span><span class="n">ThreadLock</span><span class="o">::</span><span class="n">Get</span><span class="p">(),</span><span class="w"> </span><span class="n">SOURCE_TAG</span><span class="p">};</span><span class="w"></span>
+<span class="w">    </span><span class="n">thread_list</span><span class="o">-&gt;</span><span class="n">push_front</span><span class="p">(</span><span class="n">t</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">  </span><span class="n">kcounter_add</span><span class="p">(</span><span class="n">thread_create_count</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">t</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</code></pre></div>
+<p>When starting a Thread, it finally calls <code>Start</code>. We can see, the initial thread must be started by the Process, and others must be started by a Thread. Of-course, <code>arg1</code> and <code>arg2</code> are directly sent to the entry function.</p>
+<div class="highlight"><pre><span></span><code><span class="n">zx_status_t</span><span class="w"> </span><span class="nf">sys_thread_start</span><span class="p">(</span><span class="n">zx_handle_t</span><span class="w"> </span><span class="n">handle</span><span class="p">,</span><span class="w"> </span><span class="n">zx_vaddr_t</span><span class="w"> </span><span class="n">thread_entry</span><span class="p">,</span><span class="w"> </span><span class="n">zx_vaddr_t</span><span class="w"> </span><span class="n">stack</span><span class="p">,</span><span class="w"></span>
+<span class="w">                             </span><span class="kt">uintptr_t</span><span class="w"> </span><span class="n">arg1</span><span class="p">,</span><span class="w"> </span><span class="kt">uintptr_t</span><span class="w"> </span><span class="n">arg2</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+
+<span class="w">  </span><span class="k">auto</span><span class="w"> </span><span class="n">up</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ProcessDispatcher</span><span class="o">::</span><span class="n">GetCurrent</span><span class="p">();</span><span class="w"></span>
+
+<span class="w">  </span><span class="n">fbl</span><span class="o">::</span><span class="n">RefPtr</span><span class="o">&lt;</span><span class="n">ThreadDispatcher</span><span class="o">&gt;</span><span class="w"> </span><span class="kr">thread</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="n">zx_status_t</span><span class="w"> </span><span class="n">status</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
+<span class="w">      </span><span class="n">up</span><span class="o">-&gt;</span><span class="n">handle_table</span><span class="p">().</span><span class="n">GetDispatcherWithRights</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span><span class="w"> </span><span class="n">ZX_RIGHT_MANAGE_THREAD</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="kr">thread</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="kr">thread</span><span class="o">-&gt;</span><span class="n">Start</span><span class="p">(</span><span class="n">ThreadDispatcher</span><span class="o">::</span><span class="n">EntryState</span><span class="p">{</span><span class="n">thread_entry</span><span class="p">,</span><span class="w"> </span><span class="n">stack</span><span class="p">,</span><span class="w"> </span><span class="n">arg1</span><span class="p">,</span><span class="w"> </span><span class="n">arg2</span><span class="p">},</span><span class="w"></span>
+<span class="w">                       </span><span class="cm">/* initial_thread= */</span><span class="w"> </span><span class="nb">false</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</code></pre></div>
+</li>
+<li>
+<p>Access thread state system calls are for debugging and can be accessed only when the thread is suspended or has an exception.</p>
+</li>
+</ul>
+
+              
+            </article>
+          </div>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.expand"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../assets/javascripts/workers/search.0bbba5b5.min.js"}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.e1a181d9.min.js"></script>
+      
+    
+  </body>
+</html>
