@@ -11,6 +11,7 @@ Replace "/examples/fortune/fortune.c" with the following code.
 
 // Here I try to duplicate 300\*1024 handles, while the max number of handles is initialized as 256\*1024 in _arena.Init().
 
+```c
 	#include <stdio.h>
 	#include  <zircon/syscalls.h>
 	#define  max_num  300*1024
@@ -45,12 +46,13 @@ Replace "/examples/fortune/fortune.c" with the following code.
 		{}
 		return  0;
 	}
-    
+```
+
    Call printf(...) when handle could not be created.
    
    /zircon/kernel/lib/fbl/include/fbl/gparena.h
    
-
+```c
     void* Alloc(){
 	...
 
@@ -67,6 +69,7 @@ Replace "/examples/fortune/fortune.c" with the following code.
 		count_.fetch_add(1, ktl::memory_order_relaxed);
 		return  reinterpret_cast<void*>(top);
 	}
+```
 
 ## Run
 
